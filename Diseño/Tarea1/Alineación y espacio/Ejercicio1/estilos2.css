@@ -1,0 +1,61 @@
+/* Estilos para la fila 1 */
+.fila-1 {
+    height: 100px;
+    border: 1px solid #ddd;
+    background-color: #007bff;
+    color: white;
+}
+
+/* Estilos para la fila 2 */
+.fila-2 {
+    border: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.fila-2 .col:nth-child(1) {
+    background-color: #ffc107;
+    color: black;
+}
+
+.fila-2 .col:nth-child(2) {
+    background-color: #dc3545;
+    color: white;
+}
+
+.fila-2 .col:nth-child(3) {
+    background-color: #17a2b8;
+    color: black;
+}
+
+/* Estilos para la fila 3 */
+.fila-3 {
+    border: 1px solid #ddd;
+    background-color: #ffc107;
+}
+
+.fila-3 .col:nth-child(1) {
+    background-color: #ffc107;
+    color: black;
+}
+
+.fila-3 .col:nth-child(2) {
+    background-color: #6c757d;
+    color: white;
+}
+
+/* Estilos para la fila 4 */
+.fila-4 {
+    height: 100px;
+    border: 1px solid #ddd;
+    background-color: #343a40;
+}
+
+.fila-4 .col:nth-child(1) {
+    background-color: #007bff;
+    color: white;
+}
+
+.fila-4 .col:nth-child(2) {
+    background-color: #28a745;
+    color: white;
+}

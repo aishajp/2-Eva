@@ -1,0 +1,76 @@
+* {
+  box-sizing: border-box;
+}
+
+h1,
+h4,
+p {
+  margin: 0px;
+}
+
+body {
+  background-color: red;
+}
+.container {
+  background-color: blue
+  ;
+  color: #666666;
+  
+}
+
+/* El contenedor flex para la primera fila de contenido */
+.content_wrapper {
+ 
+
+}
+
+header {
+  
+
+}
+
+/* El menú */
+nav {
+ 
+  
+}
+
+nav div {
+  
+}
+
+/* El elemento principal */
+main {
+  
+}
+
+main img {
+ 
+}
+
+.content_wrapper article:nth-of-type(1) {
+ 
+}
+
+/* Artículo. Imágenes pequeñas */
+article {
+ 
+}
+
+.articles {
+  
+}
+
+article img {
+  
+}
+
+/* Pie de la página */
+/* Pie de la página */
+footer {
+  
+}
+
+footer img {
+  
+}
