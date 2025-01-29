@@ -26,35 +26,43 @@
         Párrafo visible solo en dispositivos extra pequeños
     </p>
 
-    <!-- Imagen visible solo hasta tamaño 'sm' -->
+    <!-- Imagen visible solo hasta tamaño (sm) -->
     <div class="text-center d-block d-sm-none">
         <img src="imagenes/paisaje1.jpeg" class="img-fluid rounded" alt="Imagen hasta dispositivos pequeños (sm)">
         <p class="text-muted">Imagen hasta dispositivos pequeños (sm)</p>
     </div>
-    <!-- Encabezado solo visible desde dispoditivos medianos(md)-->
-     <div class="text-center text-muted p-3 d-md-block">
-        <h2>Encabezado visible desde dispositivos medianos (md)</h2>
+
+    <!-- Encabezado solo visible en dispositivos medianos (md) -->
+    <div class="text-center bg-info text-white p-3 d-none d-md-block d-lg-none">
+        <h2>Encabezado visible solo en dispositivos medianos (md)</h2>
     </div>
     
-    <!-- parrafo visible solo en dispositivos extra grandes(xl)-->
-     <div class="text-center text-danger p-3 d-xl-block">
-        <h2>Encabezado visible desde dispositivos extra grandes (xl)</h2>
+    <!-- Encabezado solo visible en dispositivos extra grandes (xl) -->
+    <div class="text-center bg-success text-white p-3 d-none d-xl-block">
+        <h2>Encabezado visible solo en dispositivos extra grandes (xl)</h2>
     </div>
     
-    <!-- Texto visible solo hasta tamaño'md' -->
-     <p class="text-info text-center d-none d-md-block">
-        Párrafo visible solo en dispositivos medios (md)
+    <!-- parrafo visible solo en dispositivos extra grandes (xl)-->
+     <p class="text-danger text-center d-none d-xl-block">
+        Párrafo visible solo en dispositivos extra grandes (xl)
+    </p>
+    
+    <!-- Párrafo visible solo en dispositivos medianos (md) -->
+    <p class="text-info text-center d-none d-md-block d-lg-none">
+        Párrafo visible solo en dispositivos medianos (md)
     </p>
 
-    <!-- Imagen visible solo hasta tamaño'md' -->
-     <div class="text-center d-none d-md-block">
-        <img src="imagenes/paisaje2.jpeg" class="img-fluid rounded" alt="Imagen hasta dispositivos medios (md)">
-        <p class="text-muted">Imagen hasta dispositivos medios (md)</p>
+    <!-- Imagen visible solo en dispositivos medianos (md) -->
+    <div class="text-center d-none d-md-block d-lg-none">
+        <img src="imagenes/paisaje2.jpeg" class="img-fluid rounded" alt="Imagen visible en dispositivos medianos (md)">
+        <p class="text-muted">Imagen visible solo en dispositivos medianos (md)</p>
     </div>
-    <!--Parrafo visible solo en dispositivos extra pequeño-->
+
+    <!-- Párrafo visible solo en dispositivos extra pequeños -->
     <p class="text-warning text-center d-block d-sm-none">
         Párrafo visible solo en dispositivos extra pequeños
     </p>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
