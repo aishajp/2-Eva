@@ -7,119 +7,158 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-3">
-        <div class="card text-center">
-            <div class="card-header">
-    <h1>CONCIERTOS</h1>
-    <p>Nuestra Gira.</p>
-  </div>
 
-<div id="carouselCaptions" class="carousel slide" data-bs-ride="carousel">
-  <div class="carousel-indicators">
-    <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-    <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-    <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-  </div>
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <img src="imagenes/chicago.jpg" class="d-block w-100" alt="Imagen 1">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Chicago</h5>
-        <p>Thank you, Chicago! </p>
+<div class="container-fluid bg-light text-center py-3">
+  <h2>Lorem ipsum dolor sit amet</h2>
+  <p>Vivamus ultricies sollicitudin</p>
+</div>
+
+<div class="container mt-3">
+  <!-- Carrusel -->
+  <div id="carouselCaptions" class="carousel slide mb-4" data-bs-ride="carousel">
+    <!-- Indicadores -->
+    <div class="carousel-indicators">
+      <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carouselCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img src="imagenes/ny.jpg" class="d-block w-100" alt="New York">
+        <div class="carousel-caption bg-dark bg-opacity-50 rounded p-2">
+          <h5>New York</h5>
+          <p>We love the Big Apple!</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="imagenes/chicago.jpg" class="d-block w-100" alt="Chicago">
+        <div class="carousel-caption bg-dark bg-opacity-50 rounded p-2">
+          <h5>Chicago</h5>
+          <p>Thank you, Chicago!</p>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <img src="imagenes/la.jpg" class="d-block w-100" alt="Los Angeles">
+        <div class="carousel-caption bg-dark bg-opacity-50 rounded p-2">
+          <h5>Los Angeles</h5>
+          <p>Thank you, Los Angeles!</p>
+        </div>
       </div>
     </div>
-    <div class="carousel-item">
-      <img src="imagenes/la.jpg" class="d-block w-100" alt="Imagen 2">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>Los Angeles</h5>
-        <p>Thank you, Los Angeles!</p>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselCaptions" data-bs-slide="prev" aria-label="Previous">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselCaptions" data-bs-slide="next" aria-label="Next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <h2>Lorem ipsum</h2>
+  <p>Lorem ipsum dolor sit amet, consectetur.</p>
+
+  <!-- Tarjetas -->
+  <div class="row row-cols-1 row-cols-md-3 g-4 mt-3">
+    <div class="col">
+      <div class="card h-100">
+        <img class="card-img-top" src="imagenes/ny.jpg" alt="New York">
+        <div class="card-body">
+          <h5 class="card-title">New York</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <div class="card-footer text-center">
+          <button class="btn btn-warning w-100" data-bs-toggle="modal" data-bs-target="#modalNY">Open modal</button>
+        </div>
       </div>
     </div>
-    <div class="carousel-item">
-      <img src="imagenes/ny.jpg" class="d-block w-100" alt="Imagen 3">
-      <div class="carousel-caption d-none d-md-block">
-        <h5>New York</h5>
-        <p>Thank you, New York!</p>
+    <div class="col">
+      <div class="card h-100">
+        <img class="card-img-top" src="imagenes/chicago.jpg" alt="Chicago">
+        <div class="card-body">
+          <h5 class="card-title">Chicago</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <div class="card-footer text-center">
+          <button class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#modalChicago">Open modal</button>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card h-100">
+        <img class="card-img-top" src="imagenes/la.jpg" alt="Los Angeles">
+        <div class="card-body">
+          <h5 class="card-title">Los Angeles</h5>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        </div>
+        <div class="card-footer text-center">
+          <button class="btn btn-primary w-100" data-bs-toggle="modal" data-bs-target="#modalLA">Open modal</button>
+        </div>
       </div>
     </div>
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Anterior</span>
-  </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Siguiente</span>
-  </button>
 </div>
-</div>
-</div>
-<div class="card-deck mt-3">
-    <div class="card">
-        <img class="img-responsive  mx-auto" src="imagenes/asus.jpg" alt="monitor">
-        <div class="card-body">
-            <h5 class="card-title">New York</h5>
-            <p class="card-text">
-                <strong style="display:block;">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tenetur minus illum fuga aut doloremque facilis perspiciatis nihil cumque eveniet accusantium voluptates minima eum est autem odit doloribus, dolores repudiandae non.</strong>
-            </p>
 
-        </div>
-        <div class="card-footer">
-            <button class="btn btn-primary text-center">
-                Open Modal</button><br />
-        </div>
+<!-- Modales -->
+<div class="modal fade" id="modalNY" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New York</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        Información sobre el concierto en New York.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
     </div>
-    <div class="card">
-
-        <img class="img-responsive  mx-auto pt-3" src="imagenes/amd.jpg" alt="amd">
-        <div class="card-body">
-            <h5 class="card-title">AMD FX Series FX-8350 4.0Ghz 8X Black Edition AMD FX Series FX-8350 4.0Ghz 8X Black Edition </h5>
-            <p class="card-text">
-                <span class="badge badge-warning">Procesador</span>
-                <strong style="display:block;">169€</strong>
-            </p>
-
-        </div>
-        <div class="card-footer">
-            <button class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Añadir</button><br />
-        </div>
-    </div>
-    <div class="card">
-        <img class="img-responsive  mx-auto" src="imagenes/asus.jpg" alt="monitor">
-        <div class="card-body">
-            <h5 class="card-title">Asus MX279H 27" LED IPS</h5>
-            <p class="card-text">
-
-                <span class="badge badge-success">Monitor</span>
-                <!--                        <kbd>Monitor</kbd>-->
-                <strong style="display:block;">291€</strong></p>
-
-        </div>
-        <div class="card-footer">
-            <button class="btn btn-primary">
-                Añadir</button><br />
-
-        </div>
-    </div>
-    <div class="card">
-        <img class="img-responsive  mx-auto pt-3" src="imagenes/amd.jpg" alt="amd">
-        <div class="card-body">
-            <h5 class="card-title">AMD FX Series FX-8350 4.0Ghz 8X Black Edition AMD FX Series FX-8350 4.0Ghz 8X Black Edition </h5>
-            <p class="card-text">
-                <span class="badge badge-warning">Procesador</span>
-                <strong style="display:block;">169€</strong>
-            </p>
-
-        </div>
-        <div class="card-footer">
-            <button class="btn btn-primary"><span class="glyphicon glyphicon-shopping-cart"></span> Añadir</button><br />
-        </div>
-    </div>
-
-
+  </div>
 </div>
+
+<div class="modal fade" id="modalChicago" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Chicago</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        Información sobre el concierto en Chicago.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
 </div>
+
+<div class="modal fade" id="modalLA" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Los Angeles</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        Información sobre el concierto en Los Angeles.
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
 </div>
+
+<footer class="container-fluid bg-light py-3 mt-4 d-flex justify-content-between align-items-center">
+  <p class="mb-0">Lorem ipsum dolor</p>
+  <div>
+    <a href="#" class="text-primary me-2">Los Angeles</a>
+    <a href="#" class="text-primary me-2">Chicago</a>
+    <a href="#" class="text-primary">New York</a>
+  </div>
+</footer>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
