@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Brazilian Carnival</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header class="bg-danger text-white py-3">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <img src="img/logo.png" alt="Logo Carnaval" width="50" class="me-2">
+                <h1 class="h3 mb-0">Brazilian Carnival</h1>
+            </div>
+            <nav class="navbar navbar-expand-lg">
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item"><a class="nav-link text-white" href="#inicio">Inicio</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="#eventos">Eventos</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="#galeria">Galería</a></li>
+                        <li class="nav-item"><a class="nav-link text-white" href="#fiestas">Fiestas Callejeras</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+    </header>
+    
+    <main class="container my-5">
+        <section id="inicio" class="text-center">
+            <h1 class="text-danger fw-bold">¡Bienvenido al Carnaval de Brasil!</h1>
+            <p class="lead">Descubre la magia, la alegría y la pasión de una de las celebraciones más vibrantes del mundo.</p>
+        </section>
+        
+        <section id="eventos" class="my-5">
+            <h2 class="text-danger">Eventos Destacados</h2>
+            <div id="carouselEventos" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="img/evento1.jpg" class="d-block w-100" alt="Desfile de Samba">
+                    </div>
+                    <div class="carousel-item">
+                        <img src="img/evento2.jpg" class="d-block w-100" alt="Fiesta Callejera">
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselEventos" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselEventos" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </section>
+        
+        <section id="galeria" class="my-5">
+            <h2 class="text-danger">Galería</h2>
+            <div class="row">
+                <div class="col-md-3 mb-3"><img src="img/img1.jpg" class="img-fluid rounded shadow"></div>
+                <div class="col-md-3 mb-3"><img src="img/img3.jpg" class="img-fluid rounded shadow"></div>
+                <div class="col-md-3 mb-3"><img src="img/img4.png" class="img-fluid rounded shadow"></div>
+                <div class="col-md-3 mb-3"><img src="img/img5.jpg" class="img-fluid rounded shadow"></div>
+            </div>
+        </section>
+        
+        <section id="fiestas" class="my-5">
+            <h2 class="text-danger">Fiestas Callejeras</h2>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <img src="img/fiesta1.jpg" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Bloco da Latinha</h5>
+                            <p class="card-text">Una fiesta única con trajes hechos de latas recicladas, promoviendo sostenibilidad.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <img src="img/fiesta2.jpg" class="card-img-top">
+                        <div class="card-body">
+                            <h5 class="card-title">Blocos de Flamengo</h5>
+                            <p class="card-text">Diversos bloques temáticos llenos de música y alegría en el barrio de Flamengo.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="bg-danger text-white text-center py-3">
+        <p>Copyright 2024 Brazilian Carnival. Todos los derechos reservados.</p>
+        <img src="img/insta.png" alt="Instagram" width="30">
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
