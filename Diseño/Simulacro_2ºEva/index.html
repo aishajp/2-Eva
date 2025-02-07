@@ -44,20 +44,20 @@
     </nav>
 </div>
 <!--Galeria de imagenes-->
-<div class="container"> 
+<div class="container row"> 
     <div class="row"> 
-        <div class="col-md-5"><img src="img/amapolas.jpg" class="img-thumbnail"><p>Amapolas</p></div> 
-        <div class="col-md-5"><img src="img/atardecer.jpg" class="img-thumbnail"><p>Atardecer</p></div> 
-        <div class="col-md-5"><img src="img/playa.jpg" class="img-thumbnail"><p>Playa</p></div> 
-        <div class="col-md-5"><img src="img/barca.jpg" class="img-thumbnail"><p>Barca</p></div> 
+        <div class="col-md-6"><img src="img/amapolas.jpg" class="img-thumbnail"><p>Amapolas</p></div> 
+        <div class="col-md-6"><img src="img/atardecer.jpg" class="img-thumbnail"><p>Atardecer</p></div> 
+        <div class="col-md-6"><img src="img/playa.jpg" class="img-thumbnail"><p>Playa</p></div> 
+        <div class="col-md-6"><img src="img/barca.jpg" class="img-thumbnail"><p>Barca</p></div> 
     </div> 
 <!--Carrusel-->
-<div id="carousel" class="carousel slide row-md-12">
+<div id="carousel" class="carousel slide row">
     <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+      <button type="button" data-bs-target="#carousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+      <button type="button" data-bs-target="#carousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+      <button type="button" data-bs-target="#carousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+      <button type="button" data-bs-target="#carousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
 
     </div>
     <div class="carousel-inner">
@@ -90,6 +90,14 @@
         </div>
       </div>
     </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
   </div>
   </div>
 
@@ -122,9 +130,9 @@
     </div>
      <!-- Footer --> 
      <footer class="footer bg-primary text-center py-3"> 
-        <a href="#" class="text-white mx-2"><img src="img/twitter.png"><i class="bi bi-twitter"></i></a> 
-        <a href="#" class="text-white mx-2"><img src="img/facebook.png"><i class="bi bi-facebook"></i></a> 
-        <a href="#" class="text-white mx-2"><img src="img/youtube.png"><i class="bi bi-youtube"></i></a> 
+        <a href="#" class="text-white mx-1"><img src="img/twitter.png"></a> 
+        <a href="#" class="text-white mx-1"><img src="img/facebook.png"></a> 
+        <a href="#" class="text-white mx-1"><img src="img/youtube.png"></a> 
     </footer> 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>   
 </body>
