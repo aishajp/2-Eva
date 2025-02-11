@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="es">
+<body>
+<h1>Ventana Emergente</h1>
+<p id="mensajeRecibido">Esperando mensaje...</p>
+<script>
+// Se escucha un mensaje de la ventana principal
+window.addEventListener("message", (event) => {
+// Se muestra el mensaje recibido
+document.getElementById(
+"mensajeRecibido"
+).textContent = `Mensaje recibido: ${event.data}`;
+});
+</script>
+</body>
+</html>

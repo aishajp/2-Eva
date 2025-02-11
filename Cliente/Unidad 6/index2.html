@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Ventana Principal</h1>
+    <button id="abrePopup">Abrir Ventana</button>
+    <button id="enviaMensaje">Enviar Mensaje</button>
+    <script>
+    let popup;
+    // Se abre ventana emergente
+    document.getElementById("abrePopup").addEventListener("click", () => {
+    popup = window.open("popup.html", "Popup", "width=400,height=300");
+    });
+    // Se envía un mensaje a la ventana
+    document.getElementById("enviaMensaje").addEventListener("click", () => {
+    if (popup && !popup.closed) {
+    popup.postMessage("Te saludo desde la ventana principal", "*");
+    } else {
+    alert("La ventana emergente no está abierta.");
+    }
+    });
+    </script>
+    </body>
+    </html>
