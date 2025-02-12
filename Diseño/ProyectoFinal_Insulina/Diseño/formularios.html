@@ -21,13 +21,13 @@
       <div class="collapse navbar-collapse" id="navbarNav">
          <ul class="navbar-nav ms-auto">
            <li class="nav-item">
-             <a class="nav-link active" href="#">Añadir registro</a>
+             <a class="nav-link active" href="#">Inicio</a>
            </li>
            <li class="nav-item">
-             <a class="nav-link" href="inicio.html">Inicio</a>
+             <a class="nav-link" href="#">Registros</a>
            </li>
            <li class="nav-item">
-             <a class="nav-link" href="#">Datos</a>
+             <a class="nav-link" href="#">Contacto</a>
            </li>
          </ul>
       </div>
@@ -63,17 +63,30 @@
                 <label for="fecha" class="form-label">Fecha</label>
                 <input type="date" class="form-control" id="fecha" name="fecha" required>
               </div>
-              <!-- Tipo de Comida -->
+              
+              <!-- Tipo de Comida en formato check-inline -->
               <div class="mb-3">
-                <label for="tipo_comida" class="form-label">Tipo de Comida</label>
-                <select class="form-select" id="tipo_comida" name="tipo_comida" required>
-                  <option value="">Seleccione una opción</option>
-                  <option value="desayuno">Desayuno</option>
-                  <option value="almuerzo">Almuerzo</option>
-                  <option value="cena">Cena</option>
-                  <option value="merienda">Merienda</option>
-                </select>
+                <label class="form-label">Tipo de Comida</label>
+                <div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="tipo_comida" id="comida_desayuno" value="desayuno" required>
+                    <label class="form-check-label" for="comida_desayuno">Desayuno</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="tipo_comida" id="comida_almuerzo" value="almuerzo" required>
+                    <label class="form-check-label" for="comida_almuerzo">Almuerzo</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="tipo_comida" id="comida_cena" value="cena" required>
+                    <label class="form-check-label" for="comida_cena">Cena</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="tipo_comida" id="comida_merienda" value="merienda" required>
+                    <label class="form-check-label" for="comida_merienda">Merienda</label>
+                  </div>
+                </div>
               </div>
+              
               <!-- Glucosa 1 -->
               <div class="mb-3">
                 <label for="glucosa1" class="form-label">Glucosa 1</label>
