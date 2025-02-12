@@ -21,13 +21,13 @@
       <div class="collapse navbar-collapse" id="navbarNav">
          <ul class="navbar-nav ms-auto">
            <li class="nav-item">
-             <a class="nav-link active" href="#">Inicio</a>
+             <a class="nav-link active" href="formularios.html">Añadir registro</a>
            </li>
            <li class="nav-item">
-             <a class="nav-link" href="#">Registros</a>
+             <a class="nav-link" href="inicio.html">Inicio</a>
            </li>
            <li class="nav-item">
-             <a class="nav-link" href="#">Contacto</a>
+             <a class="nav-link" href="#">Datos</a>
            </li>
          </ul>
       </div>
@@ -101,6 +101,9 @@
               <div class="mb-3">
                 <label for="raciones" class="form-label">Raciones</label>
                 <input type="number" step="any" class="form-control" id="raciones" name="raciones" placeholder="Número de raciones" required>
+                <small id="racionesHelp" class="form-text text-muted">
+                  (Desayuno/Merienda: máximo 3 raciones. Almuerzo/Cena: máximo 7 raciones)
+                </small>
               </div>
               
               <!-- Selección de evento adicional -->
@@ -171,14 +174,14 @@
   <!-- Bootstrap JS Bundle con Popper -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   
-  <!-- Script para autocompletar fechas y mostrar/ocultar campos de eventos -->
+  <!-- Script para autocompletar fechas, mostrar/ocultar campos de eventos y ajustar raciones -->
   <script>
     // Establece la fecha de hoy en los campos correspondientes
     const today = new Date().toISOString().split('T')[0];
     document.getElementById('fecha').value = today;
     document.getElementById('filterDate').value = today;
     
-    // Funcionalidad para mostrar/ocultar los campos de hipoglucemia o hiperglucemia
+    // Mostrar/Ocultar campos de Hipoglucemia e Hiperglucemia
     document.querySelectorAll('input[name="evento"]').forEach((elem) => {
       elem.addEventListener("change", function(event) {
         const value = event.target.value;
@@ -208,6 +211,19 @@
           document.getElementById("hyper_glucosa").required = false;
           document.getElementById("hyper_hora").required = false;
           document.getElementById("correccion").required = false;
+        }
+      });
+    });
+    
+    // Ajustar el atributo max del campo "raciones" según el tipo de comida seleccionado
+    document.querySelectorAll('input[name="tipo_comida"]').forEach((elem) => {
+      elem.addEventListener("change", function(event) {
+        const mealType = event.target.value;
+        const racionesField = document.getElementById("raciones");
+        if (mealType === "desayuno" || mealType === "merienda") {
+          racionesField.max = 3;
+        } else if (mealType === "almuerzo" || mealType === "cena") {
+          racionesField.max = 7;
         }
       });
     });

@@ -1,33 +1,33 @@
 /* Estilos generales */
 body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
-  }
-  
-  /* Contenedor del formulario */
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5;
+}
+
+/* Contenedor del formulario */
+.form-container {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px 30px;
+}
+
+/* Sección para ver registros anteriores */
+section.bg-light {
+  background-color: #e9ecef !important;
+}
+
+/* Footer personalizado */
+.footer {
+  background-color: #343a40;
+  margin-top: auto;
+}
+
+/* Ajustes responsivos */
+@media (max-width: 576px) {
   .form-container {
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 20px 30px;
+    padding: 20px;
+    margin: 20px;
   }
-  
-  /* Sección para ver registros anteriores */
-  section.bg-light {
-    background-color: #e9ecef !important;
-  }
-  
-  /* Footer personalizado */
-  .footer {
-    background-color: #343a40;
-    margin-top: auto;
-  }
-  
-  /* Ajustes responsivos */
-  @media (max-width: 576px) {
-    .form-container {
-      padding: 20px;
-      margin: 20px;
-    }
-  }  
+}
