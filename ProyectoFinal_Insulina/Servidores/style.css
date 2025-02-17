@@ -1,0 +1,45 @@
+/* Estilos generales */
+body {
+    background-color: #f8f9fa; /* Color de fondo suave */
+    font-family: Arial, sans-serif; /* Tipografía */
+}
+
+/* Estilos para el contenedor principal */
+.main-content {
+    margin-top: 50px; /* Espacio superior */
+}
+
+/* Estilos para los títulos */
+h2 {
+    color: #007bff; /* Color azul para los títulos */
+}
+
+/* Estilos para los formularios */
+.form-container {
+    background-color: #ffffff; /* Fondo blanco para el formulario */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    padding: 20px; /* Espaciado interno */
+}
+
+/* Estilos para los botones */
+.btn {
+    border-radius: 5px; /* Bordes redondeados para los botones */
+}
+
+/* Estilos para el pie de página */
+.footer {
+    position: relative; /* Posición relativa */
+    bottom: 0; /* Alinear al fondo */
+    width: 100%; /* Ancho completo */
+}
+
+/* Estilos para el navbar */
+.navbar {
+    margin-bottom: 20px; /* Espacio inferior */
+}
+
+/* Estilos para los mensajes de error o éxito */
+.alert {
+    margin-top: 20px; /* Espacio superior */
+}
