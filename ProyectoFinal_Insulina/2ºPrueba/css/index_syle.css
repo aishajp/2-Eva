@@ -1,0 +1,118 @@
+/* Fondo con imagen */
+body {
+    background: url('fondo.jpg') no-repeat center center fixed;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  /* Estilos para el contenido principal */
+  .main-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+  
+  /* Overlay solo para el área del formulario */
+  .main-content::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+  }
+  
+  /* Contenedor del formulario */
+  .form-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 420px;
+    position: relative;
+    z-index: 2;
+  }
+  
+  /* Título del formulario */
+  .form-title {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+    font-weight: 700;
+    font-size: 2rem;
+  }
+  
+  /* Pestañas de navegación para formularios */
+  .nav-pills .nav-link {
+    border-radius: 30px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    padding: 10px 20px;
+    margin: 0 5px;
+    font-weight: 500;
+    background-color: #f1f1f1;
+    color: #333;
+  }
+  
+  .nav-pills .nav-link.active,
+  .nav-pills .nav-link:hover {
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  /* Campos de formulario */
+  .form-control {
+    border-radius: 30px;
+    box-shadow: none;
+    border: 1px solid #ccc;
+    transition: border-color 0.3s ease;
+  }
+  
+  .form-control:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,0.25);
+  }
+  
+  /* Botones */
+  .btn {
+    border-radius: 30px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-weight: 600;
+    padding: 10px 20px;
+  }
+  
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+  }
+  
+  .btn-success {
+    background-color: #28a745;
+    border-color: #28a745;
+  }
+  
+  /* Footer */
+  .footer {
+    background-color: #343a40;
+  }
+  
+  /* Ajustes responsivos */
+  @media (max-width: 576px) {
+    .form-container {
+      padding: 20px;
+      margin: 20px;
+    }
+  }  
