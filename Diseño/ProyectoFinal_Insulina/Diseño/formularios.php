@@ -1,3 +1,11 @@
+<?php
+session_start();
+if (!isset($_SESSION['usuario'])) {
+    header("Location: inicio.html"); // Redirige a inicio de sesión si no está autenticado
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -21,7 +29,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
          <ul class="navbar-nav ms-auto">
            <li class="nav-item">
-             <a class="nav-link active" href="formularios.html">Añadir registro</a>
+             <a class="nav-link active" href="formularios.php">Añadir registro</a>
            </li>
            <li class="nav-item">
              <a class="nav-link" href="inicio.html">Inicio</a>
@@ -29,6 +37,10 @@
            <li class="nav-item">
              <a class="nav-link" href="#">Datos</a>
            </li>
+           <li class="nav-item">
+            <a class="nav-link" href="logout.php">Cerrar Sesión</a>
+          </li>
+          
          </ul>
       </div>
     </div>
