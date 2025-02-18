@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" />
+<script>
+let input = document.querySelector("input");
+input.addEventListener("change", () => {
+    if (input.files.length > 0) {
+        let fichero = input.files[0];
+        console.log("Has elegido", fichero.name);
+        if (fichero.type) console.log("Tiene como tipo ", fichero.type);
+    }
+    });
+    </script>
+    </body>
+    </html>
