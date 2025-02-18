@@ -7,22 +7,22 @@
 </head>
 <body>
     <input type="file" multiple />
-<script>
-let input = document.querySelector("input");
-input.addEventListener("change", () => {
-Array.from(input.files).forEach((f) => {
-let reader = new FileReader();
-reader.addEventListener("load", () => {
-console.log(
-"Fichero",
-f.name,
-"comienza por",
-reader.result.slice(0, 20)
-);
-});
-reader.readAsText(f);
-});
-});
-</script>
-</body>
-</html>
+    <script>
+    let input = document.querySelector("input");
+    input.addEventListener("change", () => {
+        Array.from(input.files).forEach((f) => {
+            let reader = new FileReader();
+            reader.addEventListener("load", () => {
+                console.log(
+                    "Fichero",
+                    f.name,
+                    "comienza por",
+                    reader.result.slice(0, 20)
+                );
+            });
+            reader.readAsText(f);
+        });
+        });
+        </script>
+        </body>
+        </html>
