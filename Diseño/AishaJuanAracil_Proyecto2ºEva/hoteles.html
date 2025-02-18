@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hoteles - Brazilian Carnival</title>
+  <!-- Estilos propios -->
+  <link rel="stylesheet" href="css/hoteles.css">
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light ">
+    <div class="container">
+      <a class="navbar-brand d-flex align-items-center" href="index.html">
+        <img src="img/logo.png" alt="Logo" class="img-fluid me-2" style="height:40px;">
+        <span>Brazilian Carnival</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" 
+              data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" 
+              aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="Index0f.html">Inicio</a></li>
+          <li class="nav-item"><a class="nav-link active" href="hoteles.html">Hoteles</a></li>
+          <li class="nav-item"><a class="nav-link" href="formulario.html">Contacto</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero / Sección de introducción -->
+  <header class="py-5">
+    <div class="container">
+      <h1 class="display-4">Encuentra tu Hotel Ideal</h1>
+      <p class="lead">Descubre las mejores opciones de hoteles para estar cerca del Carnaval de Brasil y vivir la experiencia al máximo.</p>
+    </div>
+  </header>
+
+  <!-- Carrusel de Hoteles Destacados -->
+  <section class="my-5">
+    <div id="hotelCarousel" class="carousel slide" data-bs-ride="carousel">
+      <div class="carousel-indicators">
+        <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+
+      </div>
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="img/hotel1.jpg" class="d-block w-100" alt="Hotel Rio de Janeiro">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Hotel Rio de Janeiro</h5>
+            <p>Lujo y comodidad a pasos del Carnaval.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="img/hotel2.jpg" class="d-block w-100" alt="Hotel Copacabana">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Hotel Copacabana</h5>
+            <p>Vistas espectaculares y ubicación privilegiada.</p>
+          </div>
+        </div>
+        <div class="carousel-item">
+          <img src="img/hotel3.jpg" class="d-block w-100" alt="Hotel Samba">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Hotel Samba</h5>
+            <p>La opción perfecta para vivir el Carnaval.</p>
+          </div>
+        </div>
+      <div class="carousel-item">
+        <img src="img/hotel4.jpg" class="d-block w-100" alt="Hotel Melia">
+        <div class="carousel-caption d-none d-md-block">
+          <h5>Hotel Gran Meliá Nacional Rio</h5>
+          <p>La opción perfecta para vivir el Carnaval.</p>
+        </div>
+      </div>
+    </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#hotelCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- Sección de Opciones de Hoteles - Cards en Grid -->
+  <section class="container my-5">
+    <h2 class="mb-4 text-center">Opciones de Hoteles</h2>
+    <div class="row g-4">
+      <!-- Card Hotel 1 -->
+      <div class="col-sm-12 col-md-6 col-lg-4">
+        <div class="card h-100">
+          <img src="img/hotel1.jpg" class="card-img-top" alt="Hotel Rio de Janeiro">
+          <div class="card-body">
+            <h5 class="card-title">Hotel Rio de Janeiro</h5>
+            <p class="card-text">Ubicado en el corazón de la ciudad, este hotel ofrece lujo y confort a pocos minutos del Carnaval.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Reservar</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card Hotel 2 -->
+      <div class="col-sm-12 col-md-6 col-lg-4">
+        <div class="card h-100">
+          <img src="img/hotel2.jpg" class="card-img-top" alt="Hotel Copacabana">
+          <div class="card-body">
+            <h5 class="card-title">Hotel Copacabana</h5>
+            <p class="card-text">Disfruta de vistas impresionantes al mar y una ubicación inmejorable para el Carnaval.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Reservar</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card Hotel 3 -->
+      <div class="col-sm-12 col-md-6 col-lg-4">
+        <div class="card h-100">
+          <img src="img/hotel3.jpg" class="card-img-top" alt="Hotel Samba">
+          <div class="card-body">
+            <h5 class="card-title">Hotel Samba</h5>
+            <p class="card-text">Ideal para los amantes de la fiesta, con paquetes especiales para el Carnaval y amenities exclusivos.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Reservar</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card Hotel 4 -->
+      <div class="col-sm-12 col-md-6 col-lg-4">
+        <div class="card h-100">
+          <img src="img/hotel4.jpg" class="card-img-top" alt="Hotel Maracaná">
+          <div class="card-body">
+            <h5 class="card-title">Hotel Gran Meliá Nacional Rio</h5>
+            <p class="card-text">Con una ubicación privilegiada cerca del epicentro del Carnaval, este hotel combina elegancia y tradición.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Reservar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="footer text-white py-3">
+    <div class="container d-flex justify-content-between align-items-center">
+      <p class="mb-0">&copy; 2024 Brazilian Carnival. Todos los derechos reservados.</p>
+      <img src="img/insta.png" alt="Icono Instagram" class="img-fluid" style="height: 30px;">
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 Bundle JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
