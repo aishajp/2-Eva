@@ -1,7 +1,22 @@
 import logo from './logo.svg';
 import './App.css';
-
+import Encabezado from './components/Encabezado';
+import Pie from './components/Pie';
+import { AppContext, valoresDefecto } from './AppContext';
 function App() {
+return (
+<div className="App">
+<AppContext.Provider value={valoresDefecto}>
+<Encabezado />
+<div>Esto simplemente es contenido.</div>
+<Pie />
+</AppContext.Provider>
+</div>
+);
+}
+
+
+/*function App() {
   return (
     <div className="App">
       <header className="App-header">
@@ -20,6 +35,6 @@ function App() {
       </header>
     </div>
   );
-}
+}*/
 
 export default App;

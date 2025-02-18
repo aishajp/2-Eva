@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<device-width>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Gestión de Maleta Extra</h1>
+    <label> <input type="checkbox" id="cbMaletaExtra" /> Maleta extra </label>
+    <button id="btnGuardar">Guardar</button>
+    <button id="btnVer">Ver</button>
+    <p id="resultado"></p>
+    
+    <script>
+   const cbMaletaExtra = document.getElementById("cbMaletaExtra");
+   const btnGuardar = document.getElementById("btnGuardar");
+   const btnVer = document.getElementById("btnVer");
+   const resultado = document.getElementById("resultado");
+    
+    // Se guarda el dato en sessionStorage
+    btnGuardar.addEventListener("click", () => {
+    let maletaExtra = cbMaletaExtra.checked;
+    sessionStorage.setItem("maleta_extra", maletaExtra);
+    resultado.textContent =
+    "Se ha guardado correctamente si tiene o no maleta extra.";
+    });
+    
+    // Ver la preferencia guardada en sessionStorage
+    btnVer.addEventListener("click", () => {
+    let maletaExtra = sessionStorage.getItem("maleta_extra");
+    if (maletaExtra) {
+    let mensaje = `Maleta extra: ${maletaExtra}`;
+    resultado.textContent = mensaje;
+    } else {
+    resultado.textContent = "No hay nada guardado.";
+    }
+    });
+    </script>
+    </body>
+    </html>
