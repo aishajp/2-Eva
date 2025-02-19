@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./validacion.js"></script>
+<style>
+.error{
+border: solid 2px #FFFF00;
+}
+</style>
+
+    </script>
+</head>
+<body>
+    <form>
+        <table>
+        <tr>
+        <td>Nombre: </td>
+        <td>
+         <input type="text" name="nombre" id="nombre" maxlength="15" required>
+        </td>
+        </tr>
+        <tr>
+            <td>Edad: </td>
+            <td>
+            <input type="number" name="edad" id="edad" min="18" max="110" required>
+            </td>
+            </tr>
+        </table>
+        <p id="mensajeError"></p>
+<p>
+<input type="submit" value="Enviar" id="enviar"></input>
+<input type="reset" value="Borrar" id="borrar"></input>
+</p>
+</form>
+</body>
+</html>
