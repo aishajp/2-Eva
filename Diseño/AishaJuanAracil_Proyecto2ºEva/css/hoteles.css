@@ -27,9 +27,6 @@ body {
 
 /* Navbar */
 .navbar {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
   background-color: #ff5a5f !important;
 }
 
@@ -49,6 +46,7 @@ header {
   color: black;
   padding: 60px 0;
   text-align: center;
+  margin-top: 60px;
 }
 
 header h1 {

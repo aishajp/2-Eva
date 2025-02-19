@@ -11,20 +11,6 @@ body {
     background-color: #f9f9f9;
 }
 
-/*.contenedor {
-    margin: 0 auto;
-    padding: 20px;
-    padding-top: 0px;
-}*/
-
-/*.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background: #ff5a5f;
-    color: white;
-    padding: 15px 20px;
-}*/
 
 .logo img {
     width: 50px;
@@ -40,9 +26,9 @@ body {
 }
 
 .navbar {
-    position: sticky;
     background-color: #ff5a5f !important;
-  }
+
+}
   
   .navbar-brand,
   .navbar-nav .nav-link {
@@ -56,11 +42,11 @@ body {
 .main-content h1 {
     color: #ff5a5f;
     margin-bottom: 15px;
+    margin-top: 60px;
 }
 
-/* Fuerza que las imágenes del carrusel tengan la misma altura y se recorten para llenar el espacio */
 .carousel-item img {
-    height: 400px; /* Ajusta la altura según tus necesidades */
+    height: 400px; 
     object-fit: cover;
     width: 100%;
   }
@@ -164,8 +150,8 @@ body {
 .section-cristo h3 {
     color: #ff5a5f;
     margin-bottom: 15px;
-    /* width: 50%;
-    margin-left: 200px; */
+    width: 50%;
+    margin-left: 200px; 
 }
 
 .cristo-container {
