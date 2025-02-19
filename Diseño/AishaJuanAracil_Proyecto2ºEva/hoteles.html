@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hoteles - Brazilian Carnival</title>
-  <!-- Estilos propios -->
   <link rel="stylesheet" href="css/hoteles.css">
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -48,9 +47,11 @@
         <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
         <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
         <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
-
+        <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+        <button type="button" data-bs-target="#hotelCarousel" data-bs-slide-to="5" aria-label="Slide 6"></button>
       </div>
       <div class="carousel-inner">
+        <!-- Hotel 1 -->
         <div class="carousel-item active">
           <img src="img/hotel1.jpg" class="d-block w-100" alt="Hotel Rio de Janeiro">
           <div class="carousel-caption d-none d-md-block">
@@ -58,6 +59,7 @@
             <p>Lujo y comodidad a pasos del Carnaval.</p>
           </div>
         </div>
+        <!-- Hotel 2 -->
         <div class="carousel-item">
           <img src="img/hotel2.jpg" class="d-block w-100" alt="Hotel Copacabana">
           <div class="carousel-caption d-none d-md-block">
@@ -65,6 +67,7 @@
             <p>Vistas espectaculares y ubicación privilegiada.</p>
           </div>
         </div>
+        <!-- Hotel 3 -->
         <div class="carousel-item">
           <img src="img/hotel3.jpg" class="d-block w-100" alt="Hotel Samba">
           <div class="carousel-caption d-none d-md-block">
@@ -72,14 +75,31 @@
             <p>La opción perfecta para vivir el Carnaval.</p>
           </div>
         </div>
-      <div class="carousel-item">
-        <img src="img/hotel4.jpg" class="d-block w-100" alt="Hotel Melia">
-        <div class="carousel-caption d-none d-md-block">
-          <h5>Hotel Gran Meliá Nacional Rio</h5>
-          <p>La opción perfecta para vivir el Carnaval.</p>
+        <!-- Hotel 4 -->
+        <div class="carousel-item">
+          <img src="img/hotel4.jpg" class="d-block w-100" alt="Hotel Gran Meliá Nacional Rio">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Hotel Gran Meliá Nacional Rio</h5>
+            <p>La opción perfecta para vivir el Carnaval.</p>
+          </div>
+        </div>
+        <!-- Hotel 5 -->
+        <div class="carousel-item">
+          <img src="img/hotel5.jpg" class="d-block w-100" alt="Hotel Tropical">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Hotel Tropical</h5>
+            <p>Experiencia vibrante y relajante en pleno Carnaval.</p>
+          </div>
+        </div>
+        <!-- Hotel 6 -->
+        <div class="carousel-item">
+          <img src="img/hotel6.jpg" class="d-block w-100" alt="Hotel Bahia">
+          <div class="carousel-caption d-none d-md-block">
+            <h5>Hotel Bahia</h5>
+            <p>Un oasis de tranquilidad y confort en el corazón del Carnaval.</p>
+          </div>
         </div>
       </div>
-    </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#hotelCarousel" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Anterior</span>
@@ -137,10 +157,36 @@
       <!-- Card Hotel 4 -->
       <div class="col-sm-12 col-md-6 col-lg-4">
         <div class="card h-100">
-          <img src="img/hotel4.jpg" class="card-img-top" alt="Hotel Maracaná">
+          <img src="img/hotel4.jpg" class="card-img-top" alt="Hotel Gran Meliá Nacional Rio">
           <div class="card-body">
             <h5 class="card-title">Hotel Gran Meliá Nacional Rio</h5>
             <p class="card-text">Con una ubicación privilegiada cerca del epicentro del Carnaval, este hotel combina elegancia y tradición.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Reservar</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card Hotel 5 -->
+      <div class="col-sm-12 col-md-6 col-lg-4">
+        <div class="card h-100">
+          <img src="img/hotel5.jpg" class="card-img-top" alt="Hotel Tropical">
+          <div class="card-body">
+            <h5 class="card-title">Hotel Tropical</h5>
+            <p class="card-text">Sumérgete en un ambiente refrescante y colorido, ideal para disfrutar el Carnaval con estilo.</p>
+          </div>
+          <div class="card-footer">
+            <a href="#" class="btn btn-primary">Reservar</a>
+          </div>
+        </div>
+      </div>
+      <!-- Card Hotel 6 -->
+      <div class="col-sm-12 col-md-6 col-lg-4">
+        <div class="card h-100">
+          <img src="img/hotel6.jpg" class="card-img-top" alt="Hotel Bahia">
+          <div class="card-body">
+            <h5 class="card-title">Hotel Bahia</h5>
+            <p class="card-text">Disfruta de una estancia inigualable en un entorno único y vibrante durante el Carnaval.</p>
           </div>
           <div class="card-footer">
             <a href="#" class="btn btn-primary">Reservar</a>
@@ -157,7 +203,7 @@
     </div>
   </footer>
 
-  <!-- Bootstrap 5 Bundle JS -->
+  <!-- Bootstrap 5 JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

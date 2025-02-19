@@ -9,24 +9,22 @@ body {
     line-height: 1.6;
     color: #333;
     background-color: #f9f9f9;
-    margin: 0;
-    padding: 0;
 }
 
-.contenedor {
+/*.contenedor {
     margin: 0 auto;
     padding: 20px;
     padding-top: 0px;
-}
+}*/
 
-.header {
+/*.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     background: #ff5a5f;
     color: white;
     padding: 15px 20px;
-}
+}*/
 
 .logo img {
     width: 50px;
@@ -41,17 +39,20 @@ body {
     color: white;
 }
 
-.nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 10px;
+.navbar {
+    position: sticky;
+    background-color: #ff5a5f !important;
+  }
+  
+  .navbar-brand,
+  .navbar-nav .nav-link {
+    color: white !important;
     font-weight: bold;
-}
-
-.nav a:hover {
+  }
+  
+  .navbar-nav .nav-link:hover {
     text-decoration: underline;
-}
-
+  }
 .main-content h1 {
     color: #ff5a5f;
     margin-bottom: 15px;
@@ -186,3 +187,21 @@ body {
     flex: 1;
     text-align: left;
 }
+/* Ajustes responsivos adicionales (3 breakpoints: xs, md y lg) */
+/* xs: por defecto */
+/* md: a partir de 768px */
+@media (min-width: 768px) {
+    header h1 {
+      font-size: 3rem;
+    }
+    header p {
+      font-size: 1.4rem;
+    }
+  }
+  
+  /* lg: a partir de 992px */
+  @media (min-width: 992px) {
+    .card-title {
+      font-size: 1.35rem;
+    }
+  }
