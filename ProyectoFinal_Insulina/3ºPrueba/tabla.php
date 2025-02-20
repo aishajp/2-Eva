@@ -1,3 +1,67 @@
+<?php
+//Conectar a la base de datos
+$db_host = 'localhost:8080';
+$db_user = 'root';
+$db_pass = ' ';
+$db_name = 'diabetesdb';
+
+$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Manjer AJAX para la validacion del mes y el año
+if (isset($_GET['action']) && $_GET['action'] == 'get_month_data') {
+    $month = intval($_GET['month']);
+    $year = intval($_GET['year']);
+    
+    // Validar mes y año
+    if ($month < 1 || $month > 12 || $year < 2000 || $year > 2100) {
+        echo json_encode(['error' => 'Invalid date']);
+        exit;
+    }
+
+    // Query to get all records for the selected month
+    $query = "SELECT 
+                DATE_FORMAT(fecha, '%d') as day,
+                tipo_comida,
+                glucosa1,
+                glucosa2,
+                raciones,
+                insulina,
+                evento,
+                hypo_glucosa,
+                hypo_hora,
+                hyper_glucosa,
+                hyper_hora,
+                correccion,
+                insulina_lenta
+              FROM registros 
+              WHERE MONTH(fecha) = ? AND YEAR(fecha) = ?
+              ORDER BY fecha, tipo_comida";
+
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ii", $month, $year);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    $data = [];
+    while ($row = $result->fetch_assoc()) {
+        if (!isset($data[$row['day']])) {
+            $data[$row['day']] = [
+                'desayuno' => null,
+                'comida' => null,
+                'cena' => null
+            ];
+        }
+        $data[$row['day']][$row['tipo_comida']] = $row;
+    }
+    
+    echo json_encode($data);
+    exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -34,7 +98,7 @@
     </div>
   </nav>
     <div class="container-fluid">
-        <!-- Date Selection Section -->
+        <!-- Secccion para la fecha -->
         <div class="date-selector">
             <div class="row">
                 <div class="col-md-6">
@@ -73,7 +137,7 @@
             </div>
         </div>
 
-        <!-- Table Container -->
+        <!-- Contenedor de la tabla -->
         <div class="table-container">
             <table class="diabetes-table">
                 <thead>
@@ -89,7 +153,7 @@
                     </tr>
                     <tr>
                         <th></th>
-                        <!-- Desayuno regular columns -->
+                        <!-- Desayuno -->
                         <th class="regular-columns">GL/1H</th>
                         <th class="regular-columns">RAC.</th>
                         <th class="regular-columns">INSU.</th>
@@ -100,7 +164,7 @@
                         <th class="hyper-column">GLU.</th>
                         <th class="hyper-column">HORA</th>
                         <th class="hyper-column">CORR.</th>
-                        <!-- Comida regular columns -->
+                        <!-- Comida -->
                         <th class="regular-columns">GL/1H</th>
                         <th class="regular-columns">RAC.</th>
                         <th class="regular-columns">INSU.</th>
@@ -111,7 +175,7 @@
                         <th class="hyper-column">GLU.</th>
                         <th class="hyper-column">HORA</th>
                         <th class="hyper-column">CORR.</th>
-                        <!-- Cena regular columns -->
+                        <!-- Cena -->
                         <th class="regular-columns">GL/1H</th>
                         <th class="regular-columns">RAC.</th>
                         <th class="regular-columns">INSU.</th>
@@ -122,12 +186,12 @@
                         <th class="hyper-column">GLU.</th>
                         <th class="hyper-column">HORA</th>
                         <th class="hyper-column">CORR.</th>
-                        <!-- Lenta column -->
+                        <!-- Lenta -->
                         <th></th>
                     </tr>
                 </thead>
                 <tbody id="tableBody">
-                    <!-- Will be filled with JavaScript -->
+                    <!-- JavaScript -->
                 </tbody>
             </table>
         </div>
@@ -135,7 +199,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Initialize year select
+        // Inicializar el año
         function initializeYearSelect() {
             const yearSelect = document.getElementById('yearSelect');
             const currentYear = new Date().getFullYear();
@@ -147,14 +211,14 @@
             }
         }
 
-        // Initialize month select to current month
+        // Inicializar mes señeccionar mes actual
         function initializeMonthSelect() {
             const monthSelect = document.getElementById('monthSelect');
             const currentMonth = new Date().getMonth() + 1;
             monthSelect.value = currentMonth;
         }
 
-        // Generate table rows for a given month
+        // General tabla filas para el mes dado
         function generateTableRows(month, year) {
             const tableBody = document.getElementById('tableBody');
             tableBody.innerHTML = ''; // Clear existing rows
@@ -164,13 +228,13 @@
             for (let day = 1; day <= daysInMonth; day++) {
                 const row = document.createElement('tr');
                 
-                // Add day column
+                // Añadir columna del dia
                 const dayCell = document.createElement('td');
                 dayCell.className = 'day-column';
                 dayCell.textContent = `DIA ${day}`;
                 row.appendChild(dayCell);
                 
-                // Add empty cells for data
+                // Añadir columna para datos
                 for (let i = 0; i < 28; i++) {
                     const cell = document.createElement('td');
                     row.appendChild(cell);
@@ -180,7 +244,7 @@
             }
         }
 
-        // Load data for selected month
+        // Cargar datos para el mes seleccionado
         async function loadMonthData() {
             const month = document.getElementById('monthSelect').value;
             const year = document.getElementById('yearSelect').value;
