@@ -1,0 +1,89 @@
+:root {
+    --border-color: #000;
+    --header-bg: #c8e6c9;
+    --hypo-bg: #bbdefb;
+    --hyper-bg: #ffe0b2;
+    --lenta-bg: #ffccbc;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 0;
+}
+
+.date-selector {
+    margin: 20px 0;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.diabetes-table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed;
+    margin-top: 20px;
+}
+
+.diabetes-table th,
+.diabetes-table td {
+    border: 1px solid var(--border-color);
+    padding: 4px;
+    text-align: center;
+    font-size: 12px;
+    height: 25px;
+}
+
+.meal-header {
+    background-color: var(--header-bg);
+    font-weight: bold;
+}
+
+.regular-columns {
+    width: 40px;
+}
+
+.hypo-column {
+    background-color: var(--hypo-bg);
+    width: 40px;
+}
+
+.hyper-column {
+    background-color: var(--hyper-bg);
+    width: 40px;
+}
+
+.lenta-column {
+    background-color: var(--lenta-bg);
+    width: 40px;
+}
+
+.day-column {
+    width: 60px;
+    font-weight: bold;
+}
+
+.table-container {
+    overflow-x: auto;
+    margin-bottom: 20px;
+}
+
+.export-buttons {
+    margin: 20px 0;
+}
+
+@media print {
+    .date-selector, .export-buttons {
+        display: none;
+    }
+    
+    .table-container {
+        overflow-x: visible;
+    }
+    
+    .diabetes-table {
+        page-break-inside: avoid;
+    }
+}
