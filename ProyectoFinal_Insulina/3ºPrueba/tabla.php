@@ -1,5 +1,5 @@
 <?php
-//Conectar a la base de datos
+/*Conectar a la base de datos
 $db_host = 'localhost:8080';
 $db_user = 'root';
 $db_pass = ' ';
@@ -11,7 +11,7 @@ $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-}
+}*/
 
 require_once 'auth.php';
 verificarSesion();
@@ -93,7 +93,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'get_month_data') {
             <a class="nav-link" href="formulario.html">Añadir registro</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="tabla.html">Tabla de registros</a>
+            <a class="nav-link" href="tabla.php">Tabla de registros</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="diagrama.php">Diagrama</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="logout.php">Cerrar Sesión</a>

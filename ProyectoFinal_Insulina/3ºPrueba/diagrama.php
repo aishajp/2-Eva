@@ -1,5 +1,5 @@
 <?php
-// Conexión a la base de datos
+/* Conexión a la base de datos
 $db_host = 'localhost:8080';
 $db_user = 'root';
 $db_pass = ' ';
@@ -10,7 +10,7 @@ $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
-}
+}*/
 
 require_once 'auth.php';
 verificarSesion();
