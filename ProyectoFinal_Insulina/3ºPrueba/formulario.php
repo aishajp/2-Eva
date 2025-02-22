@@ -1,3 +1,11 @@
+<?php
+
+require_once 'auth.php';
+
+verificarSesion();
+?>
+
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
