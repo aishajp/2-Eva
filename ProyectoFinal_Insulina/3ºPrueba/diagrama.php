@@ -10,10 +10,10 @@ $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
 if ($conn->connect_error) {
     die("Error de conexión: " . $conn->connect_error);
-}*/
+}
 
 require_once 'auth.php';
-verificarSesion();
+verificarSesion();*/
 
 // Manejo de solicitud AJAX para datos mensuales
 if (isset($_GET['action']) && $_GET['action'] == 'get_month_data') {

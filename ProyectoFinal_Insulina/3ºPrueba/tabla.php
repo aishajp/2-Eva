@@ -11,10 +11,10 @@ $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-}*/
+}
 
 require_once 'auth.php';
-verificarSesion();
+verificarSesion();*/
 
 // Manjer AJAX para la validacion del mes y el año
 if (isset($_GET['action']) && $_GET['action'] == 'get_month_data') {
