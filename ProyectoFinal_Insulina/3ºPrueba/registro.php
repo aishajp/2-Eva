@@ -1,71 +1,44 @@
-<?php 
+<?php
+// registro.php
+session_start();
+require_once "config.php";
 
-session_start(); 
-
-    require_once "login.php"; 
-
-    $nombre = $_POST['nombre']; 
-
-    $apellidos = $_POST['apellidos']; 
-
-    $fechaNacimiento = $_POST['fecha_nacimiento']; 
-
-    $usuario = $_POST['usuario']; 
-
-    $contra = $_POST['contra']; 
-
-    $con = new mysqli ($localhost, $username, $pw, $database); 
-
-     /*Validar contraseña*/ 
-
-     /* if ($contra !== $repContra) { 
-
-        echo "Las contraseñas no coinciden."; 
-
-        exit; 
-
-    }else{ */ 
-
-        /*Validar usuario si existe en la base de datos*/ 
-
-        $query = "SELECT * FROM usuario WHERE usuario = '$usuario'"; 
-
-        $result = $con->query($query); 
-
-        if($result->num_rows > 0){ 
-
-            echo "El usuario ya existe."; 
-
-            exit; 
-
-        }else{ 
-
-            $sql = "INSERT INTO usuario (fecha_nacimiento, nombre, apellidos, usuario, contra)  
-
-                    VALUES ('$fechaNacimiento', '$nombre', '$apellidos', '$usuario', '$contra')"; 
-
-            if ($con->query($sql) === TRUE) { 
-
-                echo "Usuario creado correctamente."; 
-
-            } else { 
-
-                echo "Error: ". $sql. "<br>". $con->error; 
-
-            } 
-
-        } 
-
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $conn = conectarDB();
+    
+    // Limpieza y validación de datos
+    $nombre = $conn->real_escape_string($_POST['nombre']);
+    $apellidos = $conn->real_escape_string($_POST['apellidos']);
+    $fechaNacimiento = $conn->real_escape_string($_POST['fecha_nacimiento']);
+    $usuario = $conn->real_escape_string($_POST['usuario']);
+    $contra = $_POST['contra'];
+    
+    // Validar usuario existente
+    $stmt = $conn->prepare("SELECT * FROM usuario WHERE usuario = ?");
+    $stmt->bind_param("s", $usuario);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    
+    if($result->num_rows > 0) {
+        echo "El usuario ya existe.";
+        exit;
+    }
+    
+    // Insertar nuevo usuario
+    $stmt = $conn->prepare("INSERT INTO usuario (fecha_nacimiento, nombre, apellidos, usuario, contra) VALUES (?, ?, ?, ?, ?)");
+    $stmt->bind_param("sssss", $fechaNacimiento, $nombre, $apellidos, $usuario, $contra);
+    
+    if ($stmt->execute()) {
+        $_SESSION['usuario_id'] = $conn->insert_id;
+        $_SESSION['usuario'] = $usuario;
         
-
-     
-
-    echo "Registro completado"; 
-
-    header('Location: index.html'); //Redirecciona al index al finalizar la operación. 
-
-    $con->close(); 
-
-     
-
-?> 
+        header("Location: tabla.php");
+        exit;
+    } else {
+        echo "Error al registrar el usuario: " . $conn->error;
+    }
+    
+    $stmt->close();
+    $conn->close();
+}
+?>
