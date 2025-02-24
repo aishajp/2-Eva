@@ -1,4 +1,12 @@
 <?php
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+session_start();
+// Iniciamos el buffer de salida al principio del script
+ob_start();
+
 require_once '../config/database.php';
 require_once '../includes/functions.php';
 
@@ -7,6 +15,9 @@ $success = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $database = new Database();
     $db = $database->getConnection();
+    if (!$db) {
+        die("Error en la conexión a la base de datos");
+    }
     
     $nombre = sanitizeInput($_POST['nombre']);
     $apellidos = sanitizeInput($_POST['apellidos']);
@@ -34,10 +45,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 hashPassword($contra),
                 $fecha_nacimiento
             ]);
-            $success = "Usuario registrado correctamente";
+
+           // Limpiamos cualquier salida anterior
+            ob_clean();
             
+            // Almacenamos el mensaje de éxito en una sesión
+            
+            $_SESSION['registro_exitoso'] = true;
+            
+            // Redirigimos y terminamos la ejecución
             header("Location: login.php");
-            
+            exit();
         } catch(PDOException $e) {
             $error = "Error al registrar: " . $e->getMessage();
         }
