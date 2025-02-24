@@ -1,12 +1,12 @@
 <?php 
 
 session_start(); 
-require_once "login1.php";   
+require_once "config.php";   
 $usuario = $_POST['usuario']; 
 $contra = $_POST['contra']; 
 
 // Conectar a la base de datos 
-$con = new mysqli($localhost, $username, $pw, $database); 
+$con = new mysqli($db_host, $db_user, $db_pass, $db_name); 
 
 // Verificar conexión 
 if ($con->connect_error) { 

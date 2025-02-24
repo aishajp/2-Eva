@@ -3,7 +3,7 @@
 function conectarDB() {
     $db_host = 'localhost:8080';
     $db_user = 'root';
-    $db_pass = '';  // Use environment variables for credentials
+    $db_pass = ''; 
     $db_name = 'diabetesdb';
     
     $conn = new mysqli($db_host, $db_user, $db_pass, $db_name);

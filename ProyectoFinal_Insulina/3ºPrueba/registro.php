@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['usuario_id'] = $conn->insert_id;
         $_SESSION['usuario'] = $usuario;
         
-        header("Location: tabla.php");
+        header("Location: index.html");
         exit;
     } else {
         echo "Error al registrar el usuario: " . $conn->error;
