@@ -36,12 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ]);
             $success = "Usuario registrado correctamente";
             
-            // Cambiamos la forma de redirección
-            echo "<script>
-                    setTimeout(function() {
-                        window.location.href = 'login.php';
-                    }, 2000);
-                  </script>";
+            header("Location: login.php");
             
         } catch(PDOException $e) {
             $error = "Error al registrar: " . $e->getMessage();
