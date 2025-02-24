@@ -4,7 +4,6 @@ require_once '../includes/functions.php';
 
 $error = '';
 $success = '';
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $database = new Database();
     $db = $database->getConnection();
@@ -36,7 +35,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $fecha_nacimiento
             ]);
             $success = "Usuario registrado correctamente";
-            header("refresh:2;url=login.php"); // Redirige al login después de 2 segundos
+            
+            // Cambiamos la forma de redirección
+            echo "<script>
+                    setTimeout(function() {
+                        window.location.href = 'login.php';
+                    }, 2000);
+                  </script>";
+            
         } catch(PDOException $e) {
             $error = "Error al registrar: " . $e->getMessage();
         }
