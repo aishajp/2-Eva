@@ -90,7 +90,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'get_month_data') {
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
           <li class="nav-item">
-            <a class="nav-link" href="formulario.html">Añadir registro</a>
+            <a class="nav-link" href="formulario.php">Añadir registro</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="tabla.php">Tabla de registros</a>

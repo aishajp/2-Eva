@@ -38,7 +38,7 @@ verificarSesion();*/
             <a class="nav-link" href="formulario.html">Añadir registro</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="tabla.html">Tabla de registros</a>
+            <a class="nav-link" href="tabla.php">Tabla de registros</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="logout.php">Cerrar Sesión</a>
