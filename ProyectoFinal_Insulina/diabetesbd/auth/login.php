@@ -10,7 +10,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $db = $database->getConnection();
     
     $usuario = sanitizeInput($_POST['usuario']);
-    $contra = ($_POST['contra']);
+    $contra = sanitizeInput($_POST['contra']);
     
     $sql = "SELECT id_usu, contra FROM usuario WHERE usuario = ?";
     $stmt = $db->prepare($sql);
