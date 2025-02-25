@@ -10,6 +10,11 @@ $db = $database->getConnection();
 
 $fecha = isset($_GET['fecha']) ? $_GET['fecha'] : date('Y-m-d');
 $registros = obtenerRegistrosDia($db, $fecha, $_SESSION['user_id']);
+
+// Debug: ver la estructura de $registros
+echo "<pre>";
+print_r($registros);
+echo "</pre>";
 ?>
 
 <!DOCTYPE html>
@@ -22,139 +27,152 @@ $registros = obtenerRegistrosDia($db, $fecha, $_SESSION['user_id']);
 </head>
 <body class="bg-light">
 <div class="container mt-4">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h3>Registros del Día</h3>
-                <a href="create.php" class="btn btn-primary">Nuevo Registro</a>
-            </div>
-            <div class="card-body">
-                <form class="mb-4">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label for="fecha" class="form-label">Seleccionar Fecha</label>
-                            <input type="date" class="form-control" id="fecha" name="fecha" 
-                                   value="<?php echo $fecha; ?>" onchange="this.form.submit()">
-                        </div>
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h3>Registros del Día</h3>
+            <a href="create.php" class="btn btn-primary">Nuevo Registro</a>
+        </div>
+        <div class="card-body">
+            <form class="mb-4">
+                <div class="row">
+                    <div class="col-md-4">
+                        <label for="fecha" class="form-label">Seleccionar Fecha</label>
+                        <input type="date" class="form-control" id="fecha" name="fecha" 
+                               value="<?php echo $fecha; ?>" onchange="this.form.submit()">
                     </div>
-                </form>
+                </div>
+            </form>
 
-                <!-- Tabla de Comidas -->
-                <h4 class="mb-3">Comidas</h4>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Tipo</th>
-                                <th>GL 1h</th>
-                                <th>GL 2h</th>
-                                <th>Raciones</th>
-                                <th>Insulina</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($registros['comidas'] as $comida): ?>
-                            <tr>
-                                <td><?php echo ucfirst($comida['tipo_comida']); ?></td>
-                                <td><?php echo $comida['gl_1h']; ?></td>
-                                <td><?php echo $comida['gl_2h']; ?></td>
-                                <td><?php echo $comida['raciones']; ?></td>
-                                <td><?php echo $comida['insulina']; ?></td>
-                                <td>
+            <!-- Tabla de Comidas -->
+            <h4 class="mb-3">Comidas</h4>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Tipo</th>
+                            <th>GL 1h</th>
+                            <th>GL 2h</th>
+                            <th>Raciones</th>
+                            <th>Insulina</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($registros['comidas'] as $comida): ?>
+                        <tr>
+                            <td><?php echo ucfirst($comida['tipo_comida']); ?></td>
+                            <td><?php echo $comida['gl_1h']; ?></td>
+                            <td><?php echo $comida['gl_2h']; ?></td>
+                            <td><?php echo $comida['raciones']; ?></td>
+                            <td><?php echo $comida['insulina']; ?></td>
+                            <td>
+                                <?php if (isset($comida['id'])): ?>
                                     <button class="btn btn-sm btn-warning" 
                                             onclick="editarComida(<?php echo $comida['id']; ?>)">Editar</button>
                                     <button class="btn btn-sm btn-danger" 
                                             onclick="eliminarRegistro('comida', <?php echo $comida['id']; ?>)">Eliminar</button>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+                                <?php else: ?>
+                                    <span class="text-danger">Error: ID no encontrado</span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
 
-                <!-- Tabla de Hipoglucemias -->
-                <h4 class="mb-3 mt-4">Hipoglucemias</h4>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Tipo Comida</th>
-                                <th>Glucosa</th>
-                                <th>Hora</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($registros['hipos'] as $hipo): ?>
-                            <tr>
-                                <td><?php echo ucfirst($hipo['tipo_comida']); ?></td>
-                                <td><?php echo $hipo['glucosa']; ?></td>
-                                <td><?php echo $hipo['hora']; ?></td>
-                                <td>
+            <!-- Tabla de Hipoglucemias -->
+            <h4 class="mb-3 mt-4">Hipoglucemias</h4>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Tipo Comida</th>
+                            <th>Glucosa</th>
+                            <th>Hora</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($registros['hipos'] as $hipo): ?>
+                        <tr>
+                            <td><?php echo ucfirst($hipo['tipo_comida']); ?></td>
+                            <td><?php echo $hipo['glucosa']; ?></td>
+                            <td><?php echo $hipo['hora']; ?></td>
+                            <td>
+                                <?php if (isset($hipo['id'])): ?>
                                     <button class="btn btn-sm btn-warning" 
                                             onclick="editarHipo(<?php echo $hipo['id']; ?>)">Editar</button>
                                     <button class="btn btn-sm btn-danger" 
                                             onclick="eliminarRegistro('hipoglucemia', <?php echo $hipo['id']; ?>)">Eliminar</button>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+                                <?php else: ?>
+                                    <span class="text-danger">Error: ID no encontrado</span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
 
-                <!-- Tabla de Hiperglucemias -->
-                <h4 class="mb-3 mt-4">Hiperglucemias</h4>
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <thead>
-                            <tr>
-                                <th>Tipo Comida</th>
-                                <th>Glucosa</th>
-                                <th>Hora</th>
-                                <th>Corrección</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php foreach ($registros['hipers'] as $hiper): ?>
-                            <tr>
-                                <td><?php echo ucfirst($hiper['tipo_comida']); ?></td>
-                                <td><?php echo $hiper['glucosa']; ?></td>
-                                <td><?php echo $hiper['hora']; ?></td>
-                                <td><?php echo $hiper['correccion']; ?></td>
-                                <td>
+            <!-- Tabla de Hiperglucemias -->
+            <h4 class="mb-3 mt-4">Hiperglucemias</h4>
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Tipo Comida</th>
+                            <th>Glucosa</th>
+                            <th>Hora</th>
+                            <th>Corrección</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($registros['hipers'] as $hiper): ?>
+                        <tr>
+                            <td><?php echo ucfirst($hiper['tipo_comida']); ?></td>
+                            <td><?php echo $hiper['glucosa']; ?></td>
+                            <td><?php echo $hiper['hora']; ?></td>
+                            <td><?php echo $hiper['correccion']; ?></td>
+                            <td>
+                                <?php if (isset($hiper['id'])): ?>
                                     <button class="btn btn-sm btn-warning" 
                                             onclick="editarHiper(<?php echo $hiper['id']; ?>)">Editar</button>
                                     <button class="btn btn-sm btn-danger" 
                                             onclick="eliminarRegistro('hiperglucemia', <?php echo $hiper['id']; ?>)">Eliminar</button>
-                                </td>
-                            </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                </div>
+                                <?php else: ?>
+                                    <span class="text-danger">Error: ID no encontrado</span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        function eliminarRegistro(tipo, id) {
-            if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
-                window.location.href = `delete.php?tipo=${tipo}&id=${id}&fecha=<?php echo $fecha; ?>`;
-            }
+<script>
+    function eliminarRegistro(tipo, id) {
+        if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
+            window.location.href = `delete.php?tipo=${tipo}&id=${id}&fecha=<?php echo $fecha; ?>`;
         }
+    }
 
-        function editarComida(id) {
-            window.location.href = `update.php?tipo=comida&id=${id}`;
-        }
+    function editarComida(id) {
+        window.location.href = `update.php?tipo=comida&id=${id}`;
+    }
 
-        function editarHipo(id) {
-            window.location.href = `update.php?tipo=hipoglucemia&id=${id}`;
-        }
+    function editarHipo(id) {
+        window.location.href = `update.php?tipo=hipoglucemia&id=${id}`;
+    }
 
-        function editarHiper(id) {
-            window.location.href = `update.php?tipo=hiperglucemia&id=${id}`;
-        }
-    </script>
+    function editarHiper(id) {
+        window.location.href = `update.php?tipo=hiperglucemia&id=${id}`;
+    }
+</script>
+
 </body>
 </html>
