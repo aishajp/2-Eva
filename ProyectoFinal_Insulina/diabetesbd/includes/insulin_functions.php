@@ -125,9 +125,9 @@ function obtenerRegistrosDia($db, $fecha, $id_usuario) {
 
     // Consulta en la tabla 'hiperglucemia'
     // ¡Aquí agregamos la columna tipo_comida para evitar el "Undefined array key 'tipo_comida'"!
-    $sql = "SELECT glucosa, hora, fecha, id_usu, tipo_comida
-            FROM hiperglucemia
-            WHERE fecha = :fecha AND id_usu = :id_usuario";
+    $sql = "SELECT glucosa, hora, tipo_comida, correccion, fecha, id_usu
+    FROM hiperglucemia 
+    WHERE fecha = :fecha AND id_usu = :id_usu";
     $stmt = $db->prepare($sql);
     $stmt->execute([':fecha' => $fecha, ':id_usuario' => $id_usuario]);
     $registros['hipers'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
