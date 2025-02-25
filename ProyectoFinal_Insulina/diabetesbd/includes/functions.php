@@ -1,5 +1,9 @@
 <?php
-/*session_start();*/
+
+// Iniciar sesión solo si no hay una activa
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 function sanitizeInput($data) {
     $data = trim($data);

@@ -14,9 +14,8 @@ if ($logged_in) {
     $db = $database->getConnection();
     
     // Obtener nombre del usuario
-    $stmt = $db->prepare("SELECT nombre FROM usuario WHERE id = :id");
-    $stmt->execute([':id' => $_SESSION['user_id']]);
-    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+    $stmt = $db->prepare("SELECT nombre FROM usuario WHERE id_usu = :id_usu");
+$stmt->execute([':id_usu' => $_SESSION['user_id']]);    $user = $stmt->fetch(PDO::FETCH_ASSOC);
     $user_name = $user['nombre'] ?? '';
     
     // Obtener resumen de datos recientes
