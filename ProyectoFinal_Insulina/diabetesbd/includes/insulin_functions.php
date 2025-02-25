@@ -22,7 +22,7 @@ function guardarRegistroComida($db, $datos) {
         ]);
         $exists = $stmtCheck->fetchColumn();
 
-        // Si no existe, insertamos un registro vacío
+        // Si no existe, insertamos un registro vacío en control_glucosa
         if (!$exists) {
             $sqlInsert = "INSERT INTO control_glucosa (fecha, id_usu) VALUES (:fecha, :id_usu)";
             $stmtInsert = $db->prepare($sqlInsert);
@@ -32,19 +32,19 @@ function guardarRegistroComida($db, $datos) {
             ]);
         }
 
-        // Ahora sí, insertamos en la tabla comida
+        // Insertamos en la tabla comida
         $sql = "INSERT INTO comida (tipo_comida, gl_1h, gl_2h, raciones, insulina, fecha, id_usu) 
                 VALUES (:tipo_comida, :gl_1h, :gl_2h, :raciones, :insulina, :fecha, :id_usu)";
 
         $stmt = $db->prepare($sql);
         $result = $stmt->execute([
             ':tipo_comida' => $datos['tipo_comida'],
-            ':gl_1h' => $datos['gl_1h'] ?: 0,
-            ':gl_2h' => $datos['gl_2h'] ?: 0,
-            ':raciones' => $datos['raciones'] ?: 0,
-            ':insulina' => $datos['insulina'] ?: 0,
-            ':fecha' => $datos['fecha'],
-            ':id_usu' => $id_usuario
+            ':gl_1h'       => $datos['gl_1h'] ?: 0,
+            ':gl_2h'       => $datos['gl_2h'] ?: 0,
+            ':raciones'    => $datos['raciones'] ?: 0,
+            ':insulina'    => $datos['insulina'] ?: 0,
+            ':fecha'       => $datos['fecha'],
+            ':id_usu'      => $id_usuario
         ]);
 
         if ($result) {
@@ -66,14 +66,15 @@ function guardarRegistroHipo($db, $datos) {
 
         $stmt = $db->prepare($sql);
         $stmt->execute([
-            ':glucosa' => $datos['glucosa'],
-            ':hora' => $datos['hora'],
+            ':glucosa'     => $datos['glucosa'],
+            ':hora'        => $datos['hora'],
             ':tipo_comida' => $datos['tipo_comida'],
-            ':fecha' => $datos['fecha'],
-            ':id_usu' => $_SESSION['user_id']
+            ':fecha'       => $datos['fecha'],
+            ':id_usu'      => $_SESSION['user_id']
         ]);
         return true;
     } catch (PDOException $e) {
+        error_log("Error PDO Exception: " . $e->getMessage());
         return false;
     }
 }
@@ -85,15 +86,16 @@ function guardarRegistroHiper($db, $datos) {
 
         $stmt = $db->prepare($sql);
         $stmt->execute([
-            ':glucosa' => $datos['glucosa'],
-            ':hora' => $datos['hora'],
-            ':correccion' => $datos['correccion'],
+            ':glucosa'     => $datos['glucosa'],
+            ':hora'        => $datos['hora'],
+            ':correccion'  => $datos['correccion'],
             ':tipo_comida' => $datos['tipo_comida'],
-            ':fecha' => $datos['fecha'],
-            ':id_usu' => $_SESSION['user_id']
+            ':fecha'       => $datos['fecha'],
+            ':id_usu'      => $_SESSION['user_id']
         ]);
         return true;
     } catch (PDOException $e) {
+        error_log("Error PDO Exception: " . $e->getMessage());
         return false;
     }
 }
@@ -106,7 +108,6 @@ function obtenerRegistrosDia($db, $fecha, $id_usuario) {
     ];
 
     // Consulta en la tabla 'comida'
-    // (Usa solo columnas que existan en tu tabla comida)
     $sql = "SELECT gl_1h, gl_2h, raciones, insulina, fecha, tipo_comida, id_usu
             FROM comida
             WHERE fecha = :fecha AND id_usu = :id_usu";
@@ -115,7 +116,6 @@ function obtenerRegistrosDia($db, $fecha, $id_usuario) {
     $registros['comidas'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Consulta en la tabla 'hipoglucemia'
-    // (Elimina 'id_hipo' si no existe)
     $sql = "SELECT glucosa, hora, tipo_comida, fecha, id_usu
             FROM hipoglucemia
             WHERE fecha = :fecha AND id_usu = :id_usu";
@@ -124,12 +124,12 @@ function obtenerRegistrosDia($db, $fecha, $id_usuario) {
     $registros['hipos'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Consulta en la tabla 'hiperglucemia'
-    // (Si no existe 'id_hiper', elimínala también)
-    $sql = "SELECT glucosa, hora, fecha, id_usu
+    // ¡Aquí agregamos la columna tipo_comida para evitar el "Undefined array key 'tipo_comida'"!
+    $sql = "SELECT glucosa, hora, fecha, id_usu, tipo_comida
             FROM hiperglucemia
-            WHERE fecha = :fecha AND id_usu = :id_usu";
+            WHERE fecha = :fecha AND id_usu = :id_usuario";
     $stmt = $db->prepare($sql);
-    $stmt->execute([':fecha' => $fecha, ':id_usu' => $id_usuario]);
+    $stmt->execute([':fecha' => $fecha, ':id_usuario' => $id_usuario]);
     $registros['hipers'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     return $registros;
@@ -138,45 +138,55 @@ function obtenerRegistrosDia($db, $fecha, $id_usuario) {
 function actualizarRegistroComida($db, $tipo_comida, $fecha, $id_usu, $datos) {
     try {
         $sql = "UPDATE comida SET 
-                gl_1h = :gl_1h,
-                gl_2h = :gl_2h,
-                raciones = :raciones,
-                insulina = :insulina
-                WHERE tipo_comida = :tipo_comida AND fecha = :fecha AND id_usu = :id_usu";
+                gl_1h     = :gl_1h,
+                gl_2h     = :gl_2h,
+                raciones  = :raciones,
+                insulina  = :insulina
+                WHERE tipo_comida = :tipo_comida 
+                  AND fecha = :fecha 
+                  AND id_usu = :id_usu";
 
         $stmt = $db->prepare($sql);
         $stmt->execute([
-            ':gl_1h' => $datos['gl_1h'],
-            ':gl_2h' => $datos['gl_2h'],
-            ':raciones' => $datos['raciones'],
-            ':insulina' => $datos['insulina'],
+            ':gl_1h'       => $datos['gl_1h'],
+            ':gl_2h'       => $datos['gl_2h'],
+            ':raciones'    => $datos['raciones'],
+            ':insulina'    => $datos['insulina'],
             ':tipo_comida' => $tipo_comida,
-            ':fecha' => $fecha,
-            ':id_usu' => $id_usu
+            ':fecha'       => $fecha,
+            ':id_usu'      => $id_usu
         ]);
         return true;
     } catch (PDOException $e) {
+        error_log("Error PDO Exception: " . $e->getMessage());
         return false;
     }
 }
+
 function eliminarRegistro($db, $tabla, $tipo, $fecha, $id_usu) {
     try {
         // Ajusta según la tabla específica
         if ($tabla == 'comida') {
-            $sql = "DELETE FROM comida WHERE tipo_comida = :tipo AND fecha = :fecha AND id_usu = :id_usu";
+            $sql = "DELETE FROM comida 
+                    WHERE tipo_comida = :tipo 
+                      AND fecha = :fecha 
+                      AND id_usu = :id_usu";
             $stmt = $db->prepare($sql);
             $stmt->execute([
-                ':tipo' => $tipo,
+                ':tipo'  => $tipo,
                 ':fecha' => $fecha,
-                ':id_usu' => $id_usu
+                ':id_usu'=> $id_usu
             ]);
             return true;
         }
-        
+
         // Añade casos para otras tablas basándote en sus estructuras reales
-        
+        // if ($tabla == 'hipoglucemia') { ... }
+        // if ($tabla == 'hiperglucemia') { ... }
+
         return false;
     } catch (PDOException $e) {
+        error_log("Error PDO Exception: " . $e->getMessage());
         return false;
     }
 }
