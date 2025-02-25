@@ -26,9 +26,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ];
     
     // Guardar el registro de comida
-    if (guardarRegistroComida($db, $datos)) {
-        $mensaje = "Registro de comida guardado correctamente";
-        $tipo_mensaje = "success";
+   
+if (guardarRegistroComida($db, $datos)) {
+    $mensaje = "Registro de comida guardado correctamente";
+    $tipo_mensaje = "success";
+} else {
+    $mensaje = "Error al guardar el registro de comida";
+    $tipo_mensaje = "danger";
+}
         
         // Si hay hipoglucemia, guardar también el registro de hipoglucemia
         if (isset($_POST['es_hipo']) && $_POST['es_hipo'] == '1') {

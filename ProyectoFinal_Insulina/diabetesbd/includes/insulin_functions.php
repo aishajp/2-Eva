@@ -19,8 +19,10 @@ function guardarRegistroComida($db, $datos) {
         ]);
         return true;
     } catch(PDOException $e) {
-        return false;
-    }
+       // Log the error message
+       error_log("Error al guardar comida: " . $e->getMessage());
+       return false;
+   }
 }
 
 function guardarRegistroHipo($db, $datos) {
