@@ -40,8 +40,8 @@ $isLoggedIn = isset($_SESSION['user_id']);
             <?php if ($isLoggedIn): ?>
                 <a href="dashboard.php" class="btn btn-primary">Ir al Dashboard</a>
             <?php else: ?>
-                <a href="register.php" class="btn btn-success">Regístrate ahora</a>
-                <a href="login.php" class="btn btn-outline-primary">Iniciar sesión</a>
+                <a href="insulin/create.php" class="btn btn-success">Regístrate ahora</a>
+                <a href="insulin/delete.php" class="btn btn-outline-primary">Iniciar sesión</a>
             <?php endif; ?>
         </div>
     </div>
