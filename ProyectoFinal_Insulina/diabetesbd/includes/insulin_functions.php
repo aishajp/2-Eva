@@ -100,40 +100,46 @@ function guardarRegistroHiper($db, $datos) {
     }
 }
 
-function obtenerRegistrosDia($db, $fecha, $id_usuario) {
+function obtenerRegistrosDia($db, $fecha, $id_usu) {
     $registros = [
         'comidas' => [],
-        'hipos'   => [],
-        'hipers'  => []
+        'hipos' => [],
+        'hipers' => []
     ];
 
-    // Consulta en la tabla 'comida'
-    $sql = "SELECT gl_1h, gl_2h, raciones, insulina, fecha, tipo_comida, id_usu
-            FROM comida
-            WHERE fecha = :fecha AND id_usu = :id_usu";
-    $stmt = $db->prepare($sql);
-    $stmt->execute([':fecha' => $fecha, ':id_usu' => $id_usuario]);
+    // Obtener comidas
+    $query = "SELECT id, tipo_comida, gl_1h, gl_2h, raciones, insulina 
+              FROM comidas 
+              WHERE id_usu = :id_usu AND fecha = :fecha";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':id_usu', $id_usu);
+    $stmt->bindParam(':fecha', $fecha);
+    $stmt->execute();
     $registros['comidas'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Consulta en la tabla 'hipoglucemia'
-    $sql = "SELECT glucosa, hora, tipo_comida, fecha, id_usu
-            FROM hipoglucemia
-            WHERE fecha = :fecha AND id_usu = :id_usu";
-    $stmt = $db->prepare($sql);
-    $stmt->execute([':fecha' => $fecha, ':id_usu' => $id_usuario]);
+    // Obtener hipoglucemias
+    $query = "SELECT id, tipo_comida, glucosa, hora 
+              FROM hipoglucemias 
+              WHERE id_usu = :id_usu AND fecha = :fecha";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':id_usu', $id_usu);
+    $stmt->bindParam(':fecha', $fecha);
+    $stmt->execute();
     $registros['hipos'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Consulta en la tabla 'hiperglucemia'
-    // ¡Aquí agregamos la columna tipo_comida para evitar el "Undefined array key 'tipo_comida'"!
-    $sql = "SELECT glucosa, hora, tipo_comida, correccion, fecha, id_usu
-    FROM hiperglucemia 
-    WHERE fecha = :fecha AND id_usu = :id_usu";
-    $stmt = $db->prepare($sql);
-    $stmt->execute([':fecha' => $fecha, ':id_usuario' => $id_usuario]);
+    // Obtener hiperglucemias
+    $query = "SELECT id, tipo_comida, glucosa, hora, correccion 
+              FROM hiperglucemias 
+              WHERE id_usu = :id_usu AND fecha = :fecha";
+    $stmt = $db->prepare($query);
+    $stmt->bindParam(':id_usu', $id_usu);
+    $stmt->bindParam(':fecha', $fecha);
+    $stmt->execute();
     $registros['hipers'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     return $registros;
 }
+
 
 function actualizarRegistroComida($db, $tipo_comida, $fecha, $id_usu, $datos) {
     try {

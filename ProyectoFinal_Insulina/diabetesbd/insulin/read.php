@@ -9,7 +9,7 @@ $database = new Database();
 $db = $database->getConnection();
 
 $fecha = isset($_GET['fecha']) ? $_GET['fecha'] : date('Y-m-d');
-$registros = obtenerRegistrosDia($db, $fecha, $_SESSION['user_id']);
+$registros = obtenerRegistrosDia($db, $fecha, $_SESSION['id_usu']);
 
 ?>
 
