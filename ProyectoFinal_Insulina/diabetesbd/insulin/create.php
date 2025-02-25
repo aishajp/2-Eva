@@ -114,18 +114,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         <div class="card">
             <div class="card-header">
-                <h3>Registro Diario</h3>
+                <h5>Registro Diario</h5>
             </div>
             <div class="card-body">
                 <form method="POST" id="registroForm">
                     <div class="mb-3">
                         <label for="fecha" class="form-label">Fecha</label>
-                        <input type="date" class="form-control" id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>" required>
+                        <input type="date" class="form-control form-control-sm" id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>" required>
                     </div>
 
                     <div class="mb-3">
                         <label class="form-label">Tipo de Comida</label>
-                        <select class="form-select" name="tipo_comida" required>
+                        <select class="form-select form-select-sm" name="tipo_comida" required>
                             <option value="desayuno">Desayuno</option>
                             <option value="comida">Comida</option>
                             <option value="merienda">Merienda</option>
@@ -134,38 +134,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     
                     <!-- Datos comunes de comida -->
-                    <div class="row">
+                    <div class="row g-2">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Glucosa 1h</label>
-                                <input type="number" class="form-control" name="gl_1h">
+                                <input type="number" class="form-control form-control-sm" name="gl_1h">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Glucosa 2h</label>
-                                <input type="number" class="form-control" name="gl_2h">
+                                <input type="number" class="form-control form-control-sm" name="gl_2h">
                             </div>
                         </div>
                     </div>
                     
-                    <div class="row">
+                    <div class="row g-2">
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Raciones</label>
-                                <input type="number" class="form-control" name="raciones" step="0.1">
+                                <input type="number" class="form-control form-control-sm" name="raciones" step="0.1">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Insulina</label>
-                                <input type="number" class="form-control" name="insulina" step="0.1">
+                                <input type="number" class="form-control form-control-sm" name="insulina" step="0.1">
                             </div>
                         </div>
                     </div>
                     
                     <!-- Sección de Hipoglucemia -->
-                    <div class="card mt-4 mb-4">
+                    <div class="card mt-3 mb-3">
                         <div class="card-header">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="check_hipo" name="es_hipo" value="1">
@@ -175,17 +175,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                         </div>
                         <div class="card-body" id="form_hipo" style="display:none;">
-                            <div class="row">
+                            <div class="row g-2">
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Glucosa</label>
-                                        <input type="number" class="form-control" name="glucosa_hipo">
+                                        <input type="number" class="form-control form-control-sm" name="glucosa_hipo">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Hora</label>
-                                        <input type="time" class="form-control" name="hora_hipo">
+                                        <input type="time" class="form-control form-control-sm" name="hora_hipo">
                                     </div>
                                 </div>
                             </div>
@@ -193,7 +193,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     
                     <!-- Sección de Hiperglucemia -->
-                    <div class="card mb-4">
+                    <div class="card mb-3">
                         <div class="card-header">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" id="check_hiper" name="es_hiper" value="1">
@@ -203,31 +203,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                         </div>
                         <div class="card-body" id="form_hiper" style="display:none;">
-                            <div class="row">
+                            <div class="row g-2">
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Glucosa</label>
-                                        <input type="number" class="form-control" name="glucosa_hiper">
+                                        <input type="number" class="form-control form-control-sm" name="glucosa_hiper">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Hora</label>
-                                        <input type="time" class="form-control" name="hora_hiper">
+                                        <input type="time" class="form-control form-control-sm" name="hora_hiper">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Corrección</label>
-                                        <input type="number" class="form-control" name="correccion" step="0.1">
+                                        <input type="number" class="form-control form-control-sm" name="correccion" step="0.1">
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Guardar Registro</button>
-                    <a href="../index.php" class="btn btn-secondary">Cancelar</a>
+                    <button type="submit" class="btn btn-primary btn-sm">Guardar Registro</button>
+                    <a href="../index.php" class="btn btn-secondary btn-sm">Cancelar</a>
                 </form>
             </div>
         </div>

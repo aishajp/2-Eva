@@ -11,10 +11,6 @@ $db = $database->getConnection();
 $fecha = isset($_GET['fecha']) ? $_GET['fecha'] : date('Y-m-d');
 $registros = obtenerRegistrosDia($db, $fecha, $_SESSION['user_id']);
 
-// Debug: ver la estructura de $registros
-echo "<pre>";
-print_r($registros);
-echo "</pre>";
 ?>
 
 <!DOCTYPE html>
