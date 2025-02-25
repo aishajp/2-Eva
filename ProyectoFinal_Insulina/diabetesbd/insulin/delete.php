@@ -8,12 +8,13 @@ redirectIfNotLoggedIn();
 $database = new Database();
 $db = $database->getConnection();
 
-$tipo = $_GET['tipo'] ?? '';
-$id = $_GET['id'] ?? '';
+$tipo_tabla = $_GET['tipo'] ?? ''; // Tipo de tabla (comida, hipoglucemia, etc.)
+$tipo_comida = $_GET['tipo_comida'] ?? ''; // Para la tabla comida
 $fecha = $_GET['fecha'] ?? date('Y-m-d');
+$id_usu = $_SESSION['user_id'];
 
-if ($tipo && $id) {
-    if (eliminarRegistro($db, $tipo, $id)) {
+if ($tipo_tabla && $tipo_comida && $fecha) {
+    if (eliminarRegistro($db, $tipo_tabla, $tipo_comida, $fecha, $id_usu)) {
         $_SESSION['mensaje'] = "Registro eliminado correctamente";
         $_SESSION['tipo_mensaje'] = "success";
     } else {
