@@ -57,8 +57,15 @@ try {
     <title>Tendencias de Glucosa - Control Diabetes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <style>
+        /* Asegurar que html y body ocupen el 100% de la altura */
+        html, body {
+            height: 100%;
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body class="bg-light d-flex flex-column min-vh-100">
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
         <div class="container">
@@ -72,12 +79,12 @@ try {
                         <a class="nav-link" href="../index.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="../insulin/read.php">Mis Registros</a>
+                        <a class="nav-link" href="../insulin/read.php">Mis Registros</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="../insulin/create.php">Nuevo Registro</a>
+                        <a class="nav-link" href="../insulin/create.php">Nuevo Registro</a>
                     </li>
-                    <li class="nav-item active dropdown ">
+                    <li class="nav-item active dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                             Estadísticas
                         </a>
@@ -93,35 +100,41 @@ try {
             </div>
         </div>
     </nav>
-    <div class="container mt-4">
-        <div class="card">
-            <div class="card-header">
-                <h3>Tendencias de Glucosa</h3>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-8">
-                        <canvas id="glucosaChart"></canvas>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="card mt-3">
-                            <div class="card-body">
-                                <h5>Estadísticas del Período</h5>
-                                <?php if (!empty($promedios_1h)): ?>
-                                    <p>Promedio 1h: <?php echo round(array_sum($promedios_1h)/count($promedios_1h), 1); ?> mg/dL</p>
-                                    <p>Promedio 2h: <?php echo round(array_sum($promedios_2h)/count($promedios_2h), 1); ?> mg/dL</p>
-                                    <p>Días registrados: <?php echo count($fechas); ?></p>
-                                <?php else: ?>
-                                    <p>No hay datos suficientes para mostrar estadísticas.</p>
-                                <?php endif; ?>
+
+    <!-- Contenido principal -->
+    <main class="flex-grow-1">
+        <div class="container mt-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Tendencias de Glucosa</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <canvas id="glucosaChart"></canvas>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card mt-3">
+                                <div class="card-body">
+                                    <h5>Estadísticas del Período</h5>
+                                    <?php if (!empty($promedios_1h)): ?>
+                                        <p>Promedio 1h: <?php echo round(array_sum($promedios_1h)/count($promedios_1h), 1); ?> mg/dL</p>
+                                        <p>Promedio 2h: <?php echo round(array_sum($promedios_2h)/count($promedios_2h), 1); ?> mg/dL</p>
+                                        <p>Días registrados: <?php echo count($fechas); ?></p>
+                                    <?php else: ?>
+                                        <p>No hay datos suficientes para mostrar estadísticas.</p>
+                                    <?php endif; ?>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <footer class="bg-dark text-white py-4 mt-5">
+    </main>
+
+    <!-- Footer siempre al final -->
+    <footer class="bg-dark text-white py-4">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -151,6 +164,7 @@ try {
             </div>
         </div>
     </footer>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>

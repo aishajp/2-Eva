@@ -63,8 +63,16 @@ try {
     <title>Eventos Glucémicos - Control Diabetes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <style>
+        /* Asegura que html y body ocupen el 100% de la altura */
+        html, body {
+            height: 100%;
+        }
+    </style>
 </head>
-<body class="bg-light">
+<body class="bg-light d-flex flex-column min-vh-100">
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
         <div class="container">
@@ -81,7 +89,7 @@ try {
                         <a class="nav-link" href="../insulin/read.php">Mis Registros</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link " href="../insulin/create.php">Nuevo Registro</a>
+                        <a class="nav-link" href="../insulin/create.php">Nuevo Registro</a>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
@@ -99,79 +107,85 @@ try {
             </div>
         </div>
     </nav>
-    <div class="container mt-4">
-        <div class="card">
-            <div class="card-header">
-                <h3>Resumen de Eventos Glucémicos</h3>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <!-- Gráfico de eventos -->
-                    <div class="col-md-6">
-                        <canvas id="eventosChart"></canvas>
-                    </div>
-                    
-                    <!-- Tablas de resumen -->
-                    <div class="col-md-6">
-                        <div class="card mb-3">
-                            <div class="card-header bg-warning text-dark">
-                                <h5 class="mb-0">Hipoglucemias</h5>
-                            </div>
-                            <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Comida</th>
-                                            <th>Total</th>
-                                            <th>Promedio</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($datos_hipo as $hipo): ?>
-                                        <tr>
-                                            <td><?php echo ucfirst($hipo['tipo_comida']); ?></td>
-                                            <td><?php echo $hipo['total']; ?></td>
-                                            <td><?php echo round($hipo['promedio_glucosa'], 1); ?> mg/dL</td>
-                                        </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-                            </div>
+
+    <!-- Contenido principal -->
+    <main class="flex-grow-1">
+        <div class="container mt-4">
+            <div class="card">
+                <div class="card-header">
+                    <h3>Resumen de Eventos Glucémicos</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <!-- Gráfico de eventos -->
+                        <div class="col-md-6">
+                            <canvas id="eventosChart"></canvas>
                         </div>
                         
-                        <div class="card">
-                            <div class="card-header bg-danger text-white">
-                                <h5 class="mb-0">Hiperglucemias</h5>
+                        <!-- Tablas de resumen -->
+                        <div class="col-md-6">
+                            <div class="card mb-3">
+                                <div class="card-header bg-warning text-dark">
+                                    <h5 class="mb-0">Hipoglucemias</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Comida</th>
+                                                <th>Total</th>
+                                                <th>Promedio</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($datos_hipo as $hipo): ?>
+                                            <tr>
+                                                <td><?php echo ucfirst($hipo['tipo_comida']); ?></td>
+                                                <td><?php echo $hipo['total']; ?></td>
+                                                <td><?php echo round($hipo['promedio_glucosa'], 1); ?> mg/dL</td>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>Comida</th>
-                                            <th>Total</th>
-                                            <th>Promedio</th>
-                                            <th>Corrección</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php foreach ($datos_hiper as $hiper): ?>
-                                        <tr>
-                                            <td><?php echo ucfirst($hiper['tipo_comida']); ?></td>
-                                            <td><?php echo $hiper['total']; ?></td>
-                                            <td><?php echo round($hiper['promedio_glucosa'], 1); ?> mg/dL</td>
-                                            <td><?php echo round($hiper['promedio_correccion'], 1); ?> U</td>
-                                        </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
+                            
+                            <div class="card">
+                                <div class="card-header bg-danger text-white">
+                                    <h5 class="mb-0">Hiperglucemias</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Comida</th>
+                                                <th>Total</th>
+                                                <th>Promedio</th>
+                                                <th>Corrección</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php foreach ($datos_hiper as $hiper): ?>
+                                            <tr>
+                                                <td><?php echo ucfirst($hiper['tipo_comida']); ?></td>
+                                                <td><?php echo $hiper['total']; ?></td>
+                                                <td><?php echo round($hiper['promedio_glucosa'], 1); ?> mg/dL</td>
+                                                <td><?php echo round($hiper['promedio_correccion'], 1); ?> U</td>
+                                            </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <footer class="bg-dark text-white py-4 mt-5">
+    </main>
+
+    <!-- Footer siempre al final -->
+    <footer class="bg-dark text-white py-4">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
@@ -201,8 +215,8 @@ try {
             </div>
         </div>
     </footer>
+    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
     <script>
         // Preparar datos para el gráfico
         const tiposComida = ['Desayuno', 'Comida','Merienda', 'Cena'];
