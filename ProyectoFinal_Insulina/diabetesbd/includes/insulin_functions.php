@@ -109,7 +109,7 @@ function obtenerRegistrosDia($db, $fecha, $id_usu) {
 
     // Obtener comidas
     $query = "SELECT id, tipo_comida, gl_1h, gl_2h, raciones, insulina 
-              FROM comidas 
+              FROM comida 
               WHERE id_usu = :id_usu AND fecha = :fecha";
     $stmt = $db->prepare($query);
     $stmt->bindParam(':id_usu', $id_usu);

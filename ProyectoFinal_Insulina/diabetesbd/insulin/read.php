@@ -1,9 +1,16 @@
 <?php
+session_start(); // Asegurar que la sesión está iniciada
+
 require_once '../includes/functions.php';
 require_once '../includes/insulin_functions.php';
 require_once '../config/database.php';
 
 redirectIfNotLoggedIn();
+
+// Verificar que la sesión contiene 'id_usu'
+if (!isset($_SESSION['id_usu'])) {
+    die("Error: El usuario no ha iniciado sesión correctamente.");
+}
 
 $database = new Database();
 $db = $database->getConnection();
@@ -29,7 +36,6 @@ $registros = obtenerRegistrosDia($db, $fecha, $_SESSION['id_usu']);
     </style>
 </head>
 <body class="bg-light d-flex flex-column min-vh-100">
-    <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
         <div class="container">
             <a class="navbar-brand" href="../index.php">DiabetesControl</a>
@@ -47,15 +53,6 @@ $registros = obtenerRegistrosDia($db, $fecha, $_SESSION['id_usu']);
                     <li class="nav-item">
                         <a class="nav-link" href="create.php">Nuevo Registro</a>
                     </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                            Estadísticas
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../stats/tendencias.php">Tendencias de Glucosa</a></li>
-                            <li><a class="dropdown-item" href="../stats/eventos.php">Eventos Glucémicos</a></li>
-                        </ul>
-                    </li>
                 </ul>
                 <div class="d-flex">
                     <a href="../auth/logout.php" class="btn btn-outline-light">Cerrar Sesión</a>
@@ -64,7 +61,6 @@ $registros = obtenerRegistrosDia($db, $fecha, $_SESSION['id_usu']);
         </div>
     </nav>
 
-    <!-- Contenido principal -->
     <main class="flex-grow-1">
         <div class="container mt-4">
             <div class="card">
@@ -106,11 +102,11 @@ $registros = obtenerRegistrosDia($db, $fecha, $_SESSION['id_usu']);
                                     <td><?php echo $comida['raciones']; ?></td>
                                     <td><?php echo $comida['insulina']; ?></td>
                                     <td>
-                                        <?php if (isset($comida['id'])): ?>
+                                        <?php if (isset($comida['id_comida'])): ?>
                                             <button class="btn btn-sm btn-warning" 
-                                                    onclick="editarComida(<?php echo $comida['id']; ?>)">Editar</button>
+                                                    onclick="editarComida(<?php echo $comida['id_comida']; ?>)">Editar</button>
                                             <button class="btn btn-sm btn-danger" 
-                                                    onclick="eliminarRegistro('comida', <?php echo $comida['id']; ?>)">Eliminar</button>
+                                                    onclick="eliminarRegistro('comida', <?php echo $comida['id_comida']; ?>)">Eliminar</button>
                                         <?php else: ?>
                                             <span class="text-danger">Error: ID no encontrado</span>
                                         <?php endif; ?>
@@ -121,106 +117,14 @@ $registros = obtenerRegistrosDia($db, $fecha, $_SESSION['id_usu']);
                         </table>
                     </div>
 
-                    <!-- Tabla de Hipoglucemias -->
-                    <h4 class="mb-3 mt-4">Hipoglucemias</h4>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Tipo Comida</th>
-                                    <th>Glucosa</th>
-                                    <th>Hora</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($registros['hipos'] as $hipo): ?>
-                                <tr>
-                                    <td><?php echo ucfirst($hipo['tipo_comida']); ?></td>
-                                    <td><?php echo $hipo['glucosa']; ?></td>
-                                    <td><?php echo $hipo['hora']; ?></td>
-                                    <td>
-                                        <?php if (isset($hipo['id'])): ?>
-                                            <button class="btn btn-sm btn-warning" 
-                                                    onclick="editarHipo(<?php echo $hipo['id']; ?>)">Editar</button>
-                                            <button class="btn btn-sm btn-danger" 
-                                                    onclick="eliminarRegistro('hipoglucemia', <?php echo $hipo['id']; ?>)">Eliminar</button>
-                                        <?php else: ?>
-                                            <span class="text-danger">Error: ID no encontrado</span>
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- Tabla de Hiperglucemias -->
-                    <h4 class="mb-3 mt-4">Hiperglucemias</h4>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Tipo Comida</th>
-                                    <th>Glucosa</th>
-                                    <th>Hora</th>
-                                    <th>Corrección</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($registros['hipers'] as $hiper): ?>
-                                <tr>
-                                    <td><?php echo ucfirst($hiper['tipo_comida']); ?></td>
-                                    <td><?php echo $hiper['glucosa']; ?></td>
-                                    <td><?php echo $hiper['hora']; ?></td>
-                                    <td><?php echo $hiper['correccion']; ?></td>
-                                    <td>
-                                        <?php if (isset($hiper['id'])): ?>
-                                            <button class="btn btn-sm btn-warning" 
-                                                    onclick="editarHiper(<?php echo $hiper['id']; ?>)">Editar</button>
-                                            <button class="btn btn-sm btn-danger" 
-                                                    onclick="eliminarRegistro('hiperglucemia', <?php echo $hiper['id']; ?>)">Eliminar</button>
-                                        <?php else: ?>
-                                            <span class="text-danger">Error: ID no encontrado</span>
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
+                    <!-- Otras tablas (Hipoglucemias, Hiperglucemias) seguirían la misma lógica -->
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Footer siempre al final -->
     <footer class="bg-dark text-white py-4">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <h5>DiabetesControl</h5>
-                    <p>Una aplicación para ayudarte a gestionar tu diabetes de manera efectiva.</p>
-                </div>
-                <div class="col-md-3">
-                    <h5>Enlaces</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-white">Inicio</a></li>
-                        <li><a href="#" class="text-white">Sobre Nosotros</a></li>
-                        <li><a href="#" class="text-white">Contacto</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3">
-                    <h5>Síguenos</h5>
-                    <div class="d-flex">
-                        <a href="#" class="text-white me-3"><i class="bi bi-facebook"></i></a>
-                        <a href="#" class="text-white me-3"><i class="bi bi-twitter-x"></i></a>
-                        <a href="#" class="text-white"><i class="bi bi-instagram"></i></a>
-                    </div>
-                </div>
-            </div>
-            <hr>
             <div class="text-center">
                 <p class="mb-0">&copy; <?php echo date('Y'); ?> DiabetesControl. Todos los derechos reservados.</p>
             </div>
@@ -237,14 +141,6 @@ $registros = obtenerRegistrosDia($db, $fecha, $_SESSION['id_usu']);
 
         function editarComida(id) {
             window.location.href = `update.php?tipo=comida&id=${id}`;
-        }
-
-        function editarHipo(id) {
-            window.location.href = `update.php?tipo=hipoglucemia&id=${id}`;
-        }
-
-        function editarHiper(id) {
-            window.location.href = `update.php?tipo=hiperglucemia&id=${id}`;
         }
     </script>
 </body>
