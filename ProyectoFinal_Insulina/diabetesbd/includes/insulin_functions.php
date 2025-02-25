@@ -101,24 +101,33 @@ function guardarRegistroHiper($db, $datos) {
 function obtenerRegistrosDia($db, $fecha, $id_usuario) {
     $registros = [
         'comidas' => [],
-        'hipos' => [],
-        'hipers' => []
+        'hipos'   => [],
+        'hipers'  => []
     ];
 
-    // Verificar que la columna correcta existe en la tabla comida
-    $sql = "SELECT id, tipo_comida, gl_1h, gl_2h, raciones, insulina, fecha, id_usu FROM comida WHERE fecha = :fecha AND id_usu = :id_usu";
+    // Consulta en la tabla 'comida'
+    // (Usa solo columnas que existan en tu tabla comida)
+    $sql = "SELECT gl_1h, gl_2h, raciones, insulina, fecha, tipo_comida, id_usu
+            FROM comida
+            WHERE fecha = :fecha AND id_usu = :id_usu";
     $stmt = $db->prepare($sql);
     $stmt->execute([':fecha' => $fecha, ':id_usu' => $id_usuario]);
     $registros['comidas'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Obtener registros de hipoglucemia
-    $sql = "SELECT id_hipo, glucosa, hora, tipo_comida, fecha, id_usu FROM hipoglucemia WHERE fecha = :fecha AND id_usu = :id_usu";
+    // Consulta en la tabla 'hipoglucemia'
+    // (Elimina 'id_hipo' si no existe)
+    $sql = "SELECT glucosa, hora, tipo_comida, fecha, id_usu
+            FROM hipoglucemia
+            WHERE fecha = :fecha AND id_usu = :id_usu";
     $stmt = $db->prepare($sql);
     $stmt->execute([':fecha' => $fecha, ':id_usu' => $id_usuario]);
     $registros['hipos'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Obtener registros de hiperglucemia
-    $sql = "SELECT id_hiper, glucosa, hora, fecha, id_usu FROM hiperglucemia WHERE fecha = :fecha AND id_usu = :id_usu";
+    // Consulta en la tabla 'hiperglucemia'
+    // (Si no existe 'id_hiper', elimínala también)
+    $sql = "SELECT glucosa, hora, fecha, id_usu
+            FROM hiperglucemia
+            WHERE fecha = :fecha AND id_usu = :id_usu";
     $stmt = $db->prepare($sql);
     $stmt->execute([':fecha' => $fecha, ':id_usu' => $id_usuario]);
     $registros['hipers'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
