@@ -125,7 +125,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -264,6 +263,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </div>
 
+    <!-- Footer añadido sin alterar la lógica del código -->
     <footer class="bg-dark text-white py-4 mt-5">
         <div class="container">
             <div class="text-center">
