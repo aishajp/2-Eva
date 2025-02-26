@@ -21,20 +21,22 @@ $database = new Database();
 $db = $database->getConnection();
 
 $tipo = $_GET['tipo'] ?? '';
-$id = $_GET['id'] ?? '';
+$tipo_comida = $_GET['tipo_comida'] ?? '';
 $fecha = $_GET['fecha'] ?? date('Y-m-d');
+$id_usu = $_SESSION['user_id'];
 $registro = null;
 $mensaje = '';
 $tipo_mensaje = '';
 
 // Obtener el registro actual
-if ($tipo && $id) {
+if ($tipo && $tipo_comida && $fecha) {
     try {
-        $sql = "SELECT * FROM $tipo WHERE id = :id AND id_usu = :id_usu";
+        $sql = "SELECT * FROM $tipo WHERE tipo_comida = :tipo_comida AND fecha = :fecha AND id_usu = :id_usu";
         $stmt = $db->prepare($sql);
         $stmt->execute([
-            ':id' => $id,
-            ':id_usu' => $_SESSION['user_id']
+            ':tipo_comida' => $tipo_comida,
+            ':fecha' => $fecha,
+            ':id_usu' => $id_usu
         ]);
         $registro = $stmt->fetch(PDO::FETCH_ASSOC);
         
@@ -68,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         gl_2h = :gl_2h,
                         raciones = :raciones,
                         insulina = :insulina
-                        WHERE id = :id AND id_usu = :id_usu";
+                        WHERE tipo_comida = :tipo_comida AND fecha = :fecha AND id_usu = :id_usu";
                 break;
 
             case 'hipoglucemia':
@@ -79,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $sql = "UPDATE hipoglucemia SET 
                         glucosa = :glucosa,
                         hora = :hora
-                        WHERE id = :id AND id_usu = :id_usu";
+                        WHERE tipo_comida = :tipo_comida AND fecha = :fecha AND id_usu = :id_usu";
                 break;
 
             case 'hiperglucemia':
@@ -92,7 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         glucosa = :glucosa,
                         hora = :hora,
                         correccion = :correccion
-                        WHERE id = :id AND id_usu = :id_usu";
+                        WHERE tipo_comida = :tipo_comida AND fecha = :fecha AND id_usu = :id_usu";
                 break;
                 
             default:
@@ -102,8 +104,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 exit();
         }
 
-        $datos[':id'] = $id;
-        $datos[':id_usu'] = $_SESSION['user_id'];
+        $datos[':tipo_comida'] = $tipo_comida;
+        $datos[':fecha'] = $fecha;
+        $datos[':id_usu'] = $id_usu;
         
         $stmt = $db->prepare($sql);
         if ($stmt->execute($datos)) {
@@ -121,6 +124,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="es">

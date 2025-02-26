@@ -106,7 +106,6 @@ function guardarRegistroHiper($db, $datos) {
     }
 }
 
-// In insulin_functions.php, modify the obtenerRegistrosDia function:
     function obtenerRegistrosDia($db, $fecha, $id_usu) {
         $registros = [
             'comidas' => [],
@@ -124,7 +123,7 @@ function guardarRegistroHiper($db, $datos) {
         $stmt->execute();
         $registros['comidas'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-        // Obtener hipoglucemias - cambiar 'hipoglucemias' a 'hipoglucemia'
+        // Obtener hipoglucemias
         $query = "SELECT tipo_comida, glucosa, hora 
                   FROM hipoglucemia 
                   WHERE id_usu = :id_usu AND fecha = :fecha";
@@ -134,7 +133,7 @@ function guardarRegistroHiper($db, $datos) {
         $stmt->execute();
         $registros['hipos'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
     
-        // Obtener hiperglucemias - cambiar 'hiperglucemias' a 'hiperglucemia'
+        // Obtener hiperglucemias
         $query = "SELECT tipo_comida, glucosa, hora, correccion 
                   FROM hiperglucemia 
                   WHERE id_usu = :id_usu AND fecha = :fecha";

@@ -97,42 +97,38 @@ $registros = obtenerRegistrosDia($db, $fecha, $_SESSION['user_id']);
                     </form>
 
                     <!-- Tabla de Comidas -->
-                    <h4 class="mb-3">Comidas</h4>
-                    <div class="table-responsive">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Tipo</th>
-                                    <th>GL 1h</th>
-                                    <th>GL 2h</th>
-                                    <th>Raciones</th>
-                                    <th>Insulina</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php foreach ($registros['comidas'] as $comida): ?>
-                                <tr>
-                                    <td><?php echo ucfirst($comida['tipo_comida']); ?></td>
-                                    <td><?php echo $comida['gl_1h']; ?></td>
-                                    <td><?php echo $comida['gl_2h']; ?></td>
-                                    <td><?php echo $comida['raciones']; ?></td>
-                                    <td><?php echo $comida['insulina']; ?></td>
-                                    <td>
-                                        <?php if (isset($comida['id_usu'])): ?>
-                                            <button class="btn btn-sm btn-warning" 
-                                                    onclick="editarComida(<?php echo $comida['id_usu']; ?>)">Editar</button>
-                                            <button class="btn btn-sm btn-danger" 
-                                                    onclick="eliminarRegistro('comida', <?php echo $comida['id_usu']; ?>)">Eliminar</button>
-                                        <?php else: ?>
-                                            <span class="text-danger">Error: ID no encontrado</span>
-                                        <?php endif; ?>
-                                    </td>
-                                </tr>
-                                <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                    </div>
+<h4 class="mb-3">Comidas</h4>
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Tipo</th>
+                <th>GL 1h</th>
+                <th>GL 2h</th>
+                <th>Raciones</th>
+                <th>Insulina</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($registros['comidas'] as $comida): ?>
+            <tr>
+                <td><?php echo ucfirst($comida['tipo_comida']); ?></td>
+                <td><?php echo $comida['gl_1h']; ?></td>
+                <td><?php echo $comida['gl_2h']; ?></td>
+                <td><?php echo $comida['raciones']; ?></td>
+                <td><?php echo $comida['insulina']; ?></td>
+                <td>
+                    <a href="update.php?tipo=comida&tipo_comida=<?php echo urlencode($comida['tipo_comida']); ?>&fecha=<?php echo $fecha; ?>" 
+                       class="btn btn-sm btn-warning">Editar</a>
+                    <a href="#" class="btn btn-sm btn-danger" 
+                       onclick="eliminarRegistro('comida', '<?php echo urlencode($comida['tipo_comida']); ?>')">Eliminar</a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 
                     <!-- Otras tablas (Hipoglucemias, Hiperglucemias) seguirían la misma lógica -->
                 </div>
@@ -150,11 +146,12 @@ $registros = obtenerRegistrosDia($db, $fecha, $_SESSION['user_id']);
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function eliminarRegistro(tipo_comida, id_usu) {
-    if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
-        window.location.href = `delete.php?tipo_comida=${tipo_comida}&id_usu=${id_usu}&fecha=<?php echo $fecha; ?>`;
+    function eliminarRegistro(tipo, tipo_comida) {
+        if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
+            window.location.href = `delete.php?tipo=${tipo}&tipo_comida=${tipo_comida}&fecha=<?php echo $fecha; ?>`;
+        }
     }
-}
+</script>
 
 function editarComida(id_usu) {
     window.location.href = `update.php?tipo_comida=tipo_comida&id_usu=${id_usu}&fecha=<?php echo $fecha; ?>`;

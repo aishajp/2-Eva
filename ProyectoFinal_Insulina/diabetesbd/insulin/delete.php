@@ -1,5 +1,4 @@
 <?php
-
 // Iniciar sesión solo si no hay una activa
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -14,13 +13,13 @@ redirectIfNotLoggedIn();
 $database = new Database();
 $db = $database->getConnection();
 
-$tipo = $_GET['tipo'] ?? ''; // Type of table (comida, hipoglucemia, etc.)
-$id = $_GET['id'] ?? ''; // ID of the record
+$tipo = $_GET['tipo'] ?? ''; // Tabla: comida, hipoglucemia, etc.
+$tipo_comida = $_GET['tipo_comida'] ?? ''; // Componente de la clave primaria
 $fecha = $_GET['fecha'] ?? date('Y-m-d');
 
-// Make sure user_id is defined in the session
+// Verificar que la sesión de usuario esté activa
 if (!isset($_SESSION['user_id'])) {
-    $_SESSION['mensaje'] = "Error: Invalid session";
+    $_SESSION['mensaje'] = "Error: Sesión inválida";
     $_SESSION['tipo_mensaje'] = "danger";
     header("Location: read.php");
     exit();
@@ -28,12 +27,19 @@ if (!isset($_SESSION['user_id'])) {
 
 $id_usu = $_SESSION['user_id'];
 
-if ($tipo && $id && $fecha) {
+if ($tipo && $tipo_comida && $fecha) {
     try {
-        // Direct SQL query to delete by ID
-        $sql = "DELETE FROM $tipo WHERE id = :id AND id_usu = :id_usu";
+        // Validar el nombre de la tabla para prevenir inyección SQL
+        $allowedTables = ['comida', 'hipoglucemia', 'hiperglucemia'];
+        if (!in_array($tipo, $allowedTables)) {
+            throw new Exception("Nombre de tabla inválido");
+        }
+        
+        // SQL para eliminar con clave compuesta
+        $sql = "DELETE FROM $tipo WHERE tipo_comida = :tipo_comida AND fecha = :fecha AND id_usu = :id_usu";
         $stmt = $db->prepare($sql);
-        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':tipo_comida', $tipo_comida);
+        $stmt->bindParam(':fecha', $fecha);
         $stmt->bindParam(':id_usu', $id_usu);
         
         if ($stmt->execute()) {
@@ -43,8 +49,8 @@ if ($tipo && $id && $fecha) {
             $_SESSION['mensaje'] = "Error al eliminar el registro";
             $_SESSION['tipo_mensaje'] = "danger";
         }
-    } catch(PDOException $e) {
-        $_SESSION['mensaje'] = "Error en la base de datos: " . $e->getMessage();
+    } catch(Exception $e) {
+        $_SESSION['mensaje'] = "Error: " . $e->getMessage();
         $_SESSION['tipo_mensaje'] = "danger";
     }
 }
