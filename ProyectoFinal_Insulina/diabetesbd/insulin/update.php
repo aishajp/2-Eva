@@ -134,7 +134,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
-<!-- Se añade d-flex, flex-column y min-vh-100 para que el body ocupe al menos el 100% de la altura de la ventana -->
 <body class="bg-light d-flex flex-column min-vh-100">
     <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
@@ -171,7 +170,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </nav>
 
-    <!-- Contenedor principal que se expande para empujar el footer hacia abajo -->
     <main class="flex-fill">
         <div class="container mt-4">
             <?php if ($mensaje): ?>
@@ -308,7 +306,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Validación del lado del cliente
         document.addEventListener('DOMContentLoaded', function() {
             const form = document.getElementById('updateForm');
             if (form) {

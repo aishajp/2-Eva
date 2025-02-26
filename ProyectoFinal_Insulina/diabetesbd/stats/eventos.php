@@ -66,7 +66,6 @@ try {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
     <style>
-        /* Asegura que html y body ocupen el 100% de la altura */
         html, body {
             height: 100%;
         }
@@ -184,7 +183,6 @@ try {
         </div>
     </main>
 
-    <!-- Footer siempre al final -->
     <footer class="bg-dark text-white py-4">
         <div class="container">
             <div class="row">
@@ -218,7 +216,6 @@ try {
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Preparar datos para el gráfico
         const tiposComida = ['Desayuno', 'Comida','Merienda', 'Cena'];
         const datosHipo = <?php echo json_encode($datos_hipo); ?>;
         const datosHiper = <?php echo json_encode($datos_hiper); ?>;

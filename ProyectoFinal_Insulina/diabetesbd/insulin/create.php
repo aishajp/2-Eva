@@ -21,7 +21,6 @@ $tipo_mensaje = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fecha = $_POST['fecha'];
     
-    // Procesar siempre como comida, pero incluyendo datos de hipo/hiper
     $datos = [
         'tipo_comida' => $_POST['tipo_comida'],
         'gl_1h' => $_POST['gl_1h'] ?? null,
@@ -139,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </select>
                     </div>
                     
-                    <!-- Datos comunes de comida -->
+                    <!-- Datos de comida -->
                     <div class="row g-2">
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -270,7 +269,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Mostrar/ocultar secciones de hipo/hiperglucemia
         document.getElementById('check_hipo').addEventListener('change', function() {
             document.getElementById('form_hipo').style.display = this.checked ? 'block' : 'none';
         });

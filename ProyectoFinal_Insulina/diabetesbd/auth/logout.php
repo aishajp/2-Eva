@@ -1,5 +1,5 @@
 <?php
-session_start(); // Añadido session_start() para corregir
+session_start(); 
 require_once '../includes/functions.php';
 
 session_destroy();

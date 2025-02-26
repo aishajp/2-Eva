@@ -59,7 +59,6 @@ try {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <style>
-        /* Asegurar que html y body ocupen el 100% de la altura */
         html, body {
             height: 100%;
         }
@@ -101,7 +100,6 @@ try {
         </div>
     </nav>
 
-    <!-- Contenido principal -->
     <main class="flex-grow-1">
         <div class="container mt-4">
             <div class="card">
@@ -133,7 +131,6 @@ try {
         </div>
     </main>
 
-    <!-- Footer siempre al final -->
     <footer class="bg-dark text-white py-4">
         <div class="container">
             <div class="row">

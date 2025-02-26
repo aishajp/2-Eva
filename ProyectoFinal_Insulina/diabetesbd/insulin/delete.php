@@ -13,8 +13,8 @@ redirectIfNotLoggedIn();
 $database = new Database();
 $db = $database->getConnection();
 
-$tipo = $_GET['tipo'] ?? ''; // Tabla: comida, hipoglucemia, etc.
-$tipo_comida = $_GET['tipo_comida'] ?? ''; // Componente de la clave primaria
+$tipo = $_GET['tipo'] ?? ''; 
+$tipo_comida = $_GET['tipo_comida'] ?? '';
 $fecha = $_GET['fecha'] ?? date('Y-m-d');
 
 // Verificar que la sesión de usuario esté activa

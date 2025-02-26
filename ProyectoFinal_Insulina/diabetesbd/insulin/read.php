@@ -26,7 +26,7 @@ $registros = obtenerRegistrosDia($db, $fecha, $_SESSION['user_id']);
 $mes = date('m', strtotime($fecha));
 $anio = date('Y', strtotime($fecha));
 
-// Función para obtener resumen mensual adaptada a la estructura de la BD
+// Función para obtener resumen mensual
 function obtenerResumenMensual($db, $mes, $anio, $user_id) {
     // Primer día del mes
     $primer_dia = date('Y-m-d', strtotime($anio . '-' . $mes . '-01'));
@@ -85,7 +85,7 @@ function obtenerResumenMensual($db, $mes, $anio, $user_id) {
         
         $tipo = strtolower($row['tipo_comida']);
         
-        // Si el tipo no está en nuestro arreglo predefinido, saltar
+        // Si el tipo no está predefinido, saltar
         if (!isset($resumen['comidas']['tipos_comida'][$tipo])) {
             continue;
         }
@@ -262,7 +262,6 @@ $resumen_mensual = obtenerResumenMensual($db, $mes, $anio, $_SESSION['user_id'])
         <div class="alert alert-<?php echo $_SESSION['tipo_mensaje']; ?> alert-dismissible fade show" role="alert">
             <?php 
             echo $_SESSION['mensaje']; 
-            // Clear the message after displaying it
             unset($_SESSION['mensaje']);
             unset($_SESSION['tipo_mensaje']);
             ?>
@@ -270,7 +269,6 @@ $resumen_mensual = obtenerResumenMensual($db, $mes, $anio, $_SESSION['user_id'])
         </div>
     <?php endif; ?>
     
-    <!-- Rest of your code -->
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h3>Registros del Día</h3>
@@ -321,7 +319,6 @@ $resumen_mensual = obtenerResumenMensual($db, $mes, $anio, $_SESSION['user_id'])
                         </table>
                     </div>
 
-                    <!-- Otras tablas (Hipoglucemias, Hiperglucemias) seguirían la misma lógica -->
                 </div>
             </div>
 
