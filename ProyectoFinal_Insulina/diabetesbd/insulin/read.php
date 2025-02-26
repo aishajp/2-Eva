@@ -66,7 +66,7 @@ function obtenerResumenMensual($db, $mes, $anio, $user_id) {
     
     // Consulta SQL para obtener todas las comidas del mes
     $query = "SELECT tipo_comida, gl_1h, gl_2h, raciones, insulina 
-              FROM COMIDA 
+              FROM comida 
               WHERE id_usu = ? AND fecha BETWEEN ? AND ?";
     
     $stmt = $db->prepare($query);
