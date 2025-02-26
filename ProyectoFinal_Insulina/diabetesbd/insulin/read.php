@@ -151,11 +151,9 @@ $registros = obtenerRegistrosDia($db, $fecha, $_SESSION['user_id']);
             window.location.href = `delete.php?tipo=${tipo}&tipo_comida=${tipo_comida}&fecha=<?php echo $fecha; ?>`;
         }
     }
-</script>
-
-function editarComida(id_usu) {
+    function editarComida(id_usu) {
     window.location.href = `update.php?tipo_comida=tipo_comida&id_usu=${id_usu}&fecha=<?php echo $fecha; ?>`;
 }
-    </script>
+</script>
 </body>
 </html>
