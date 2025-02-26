@@ -124,7 +124,7 @@ function obtenerResumenMensual($db, $mes, $anio, $user_id) {
     
     // Consulta para CONTROL_GLUCOSA
     $query = "SELECT deporte, lenta 
-              FROM CONTROL_GLUCOSA 
+              FROM control_glucosa
               WHERE id_usu = ? AND fecha BETWEEN ? AND ?";
     
     $stmt = $db->prepare($query);
@@ -150,7 +150,7 @@ function obtenerResumenMensual($db, $mes, $anio, $user_id) {
     
     // Consulta para HIPERGLUCEMIA
     $query = "SELECT glucosa, correccion 
-              FROM HIPERGLUCEMIA 
+              FROM hiperglucemia 
               WHERE id_usu = ? AND fecha BETWEEN ? AND ?";
     
     $stmt = $db->prepare($query);
@@ -176,7 +176,7 @@ function obtenerResumenMensual($db, $mes, $anio, $user_id) {
     
     // Consulta para HIPOGLUCEMIA
     $query = "SELECT glucosa 
-              FROM HIPOGLUCEMIA 
+              FROM hipoglucemia
               WHERE id_usu = ? AND fecha BETWEEN ? AND ?";
     
     $stmt = $db->prepare($query);
