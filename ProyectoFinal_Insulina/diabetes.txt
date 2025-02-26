@@ -1,0 +1,2 @@
+Enlace de la aplicación sobre el servidor -> controldiabetes.atwebpages.com
+Enlace a la carpeta GIT donde esta la aplicación -> https://github.com/aishajp/2-Eva/tree/473c62148a79900866159fe34b7709c426306250/ProyectoFinal_Insulina/diabetesbd

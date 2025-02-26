@@ -46,11 +46,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $fecha_nacimiento
             ]);
 
-           // Limpiamos cualquier salida anterior
+            // Limpiamos cualquier salida anterior
             ob_clean();
             
             // Almacenamos el mensaje de éxito en una sesión
-            
             $_SESSION['registro_exitoso'] = true;
             
             // Redirigimos y terminamos la ejecución
