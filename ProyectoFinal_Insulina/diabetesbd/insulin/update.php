@@ -134,7 +134,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
-<body class="bg-light">
+<!-- Se añade d-flex, flex-column y min-vh-100 para que el body ocupe al menos el 100% de la altura de la ventana -->
+<body class="bg-light d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-4">
         <div class="container">
             <a class="navbar-brand" href="../index.php">DiabetesControl</a>
@@ -160,111 +161,111 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
     </nav>
 
-    <div class="container mt-4">
-        <?php if ($mensaje): ?>
-            <div class="alert alert-<?php echo $tipo_mensaje; ?>" role="alert">
-                <?php echo $mensaje; ?>
-            </div>
-        <?php endif; ?>
+    <!-- Contenedor principal que se expande para empujar el footer hacia abajo -->
+    <main class="flex-fill">
+        <div class="container mt-4">
+            <?php if ($mensaje): ?>
+                <div class="alert alert-<?php echo $tipo_mensaje; ?>" role="alert">
+                    <?php echo $mensaje; ?>
+                </div>
+            <?php endif; ?>
 
-        <div class="card shadow-sm">
-            <div class="card-header bg-primary text-white">
-                <h3 class="mb-0">Actualizar Registro de <?php echo ucfirst($tipo); ?></h3>
-            </div>
-            <div class="card-body">
-                <?php if ($registro): ?>
-                    <form method="POST" id="updateForm">
-                        <input type="hidden" name="id" value="<?php echo $id; ?>">
-                        <input type="hidden" name="tipo" value="<?php echo $tipo; ?>">
-                        <input type="hidden" name="fecha" value="<?php echo $fecha; ?>">
-                        
-                        <?php if ($tipo == 'comida'): ?>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Tipo de Comida</label>
-                                <input type="text" class="form-control" value="<?php echo ucfirst($registro['tipo_comida']); ?>" readonly>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Glucosa 1h después</label>
-                                    <input type="number" class="form-control" name="gl_1h" value="<?php echo $registro['gl_1h']; ?>" required>
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Actualizar Registro de <?php echo ucfirst($tipo); ?></h3>
+                </div>
+                <div class="card-body">
+                    <?php if ($registro): ?>
+                        <form method="POST" id="updateForm">
+                            <input type="hidden" name="id" value="<?php echo $id; ?>">
+                            <input type="hidden" name="tipo" value="<?php echo $tipo; ?>">
+                            <input type="hidden" name="fecha" value="<?php echo $fecha; ?>">
+                            
+                            <?php if ($tipo == 'comida'): ?>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Tipo de Comida</label>
+                                    <input type="text" class="form-control" value="<?php echo ucfirst($registro['tipo_comida']); ?>" readonly>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Glucosa 2h después</label>
-                                    <input type="number" class="form-control" name="gl_2h" value="<?php echo $registro['gl_2h']; ?>" required>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Glucosa 1h después</label>
+                                        <input type="number" class="form-control" name="gl_1h" value="<?php echo $registro['gl_1h']; ?>" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Glucosa 2h después</label>
+                                        <input type="number" class="form-control" name="gl_2h" value="<?php echo $registro['gl_2h']; ?>" required>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Raciones</label>
-                                    <input type="number" class="form-control" name="raciones" step="0.1" value="<?php echo $registro['raciones']; ?>" required>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Raciones</label>
+                                        <input type="number" class="form-control" name="raciones" step="0.1" value="<?php echo $registro['raciones']; ?>" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Insulina</label>
+                                        <input type="number" class="form-control" name="insulina" step="0.1" value="<?php echo $registro['insulina']; ?>" required>
+                                    </div>
                                 </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Insulina</label>
-                                    <input type="number" class="form-control" name="insulina" step="0.1" value="<?php echo $registro['insulina']; ?>" required>
+                            <?php elseif ($tipo == 'hipoglucemia'): ?>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Tipo de Comida</label>
+                                    <input type="text" class="form-control" value="<?php echo ucfirst($registro['tipo_comida']); ?>" readonly>
                                 </div>
-                            </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Glucosa</label>
+                                        <input type="number" class="form-control" name="glucosa" value="<?php echo $registro['glucosa']; ?>" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Hora</label>
+                                        <input type="time" class="form-control" name="hora" value="<?php echo $registro['hora']; ?>" required>
+                                    </div>
+                                </div>
+                            <?php elseif ($tipo == 'hiperglucemia'): ?>
+                                <div class="mb-3">
+                                    <label class="form-label fw-bold">Tipo de Comida</label>
+                                    <input type="text" class="form-control" value="<?php echo ucfirst($registro['tipo_comida']); ?>" readonly>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Glucosa</label>
+                                        <input type="number" class="form-control" name="glucosa" value="<?php echo $registro['glucosa']; ?>" required>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label">Hora</label>
+                                        <input type="time" class="form-control" name="hora" value="<?php echo $registro['hora']; ?>" required>
+                                    </div>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Corrección</label>
+                                    <input type="number" class="form-control" name="correccion" step="0.1" value="<?php echo $registro['correccion']; ?>" required>
+                                </div>
+                            <?php endif; ?>
 
-                        <?php elseif ($tipo == 'hipoglucemia'): ?>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Tipo de Comida</label>
-                                <input type="text" class="form-control" value="<?php echo ucfirst($registro['tipo_comida']); ?>" readonly>
+                            <div class="d-flex gap-2 mt-4">
+                                <button type="submit" class="btn btn-primary">
+                                    <i class="bi bi-check-circle"></i> Actualizar
+                                </button>
+                                <a href="read.php?fecha=<?php echo $fecha; ?>" class="btn btn-secondary">
+                                    <i class="bi bi-x-circle"></i> Cancelar
+                                </a>
                             </div>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Glucosa</label>
-                                    <input type="number" class="form-control" name="glucosa" value="<?php echo $registro['glucosa']; ?>" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Hora</label>
-                                    <input type="time" class="form-control" name="hora" value="<?php echo $registro['hora']; ?>" required>
-                                </div>
-                            </div>
-
-                        <?php elseif ($tipo == 'hiperglucemia'): ?>
-                            <div class="mb-3">
-                                <label class="form-label fw-bold">Tipo de Comida</label>
-                                <input type="text" class="form-control" value="<?php echo ucfirst($registro['tipo_comida']); ?>" readonly>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Glucosa</label>
-                                    <input type="number" class="form-control" name="glucosa" value="<?php echo $registro['glucosa']; ?>" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Hora</label>
-                                    <input type="time" class="form-control" name="hora" value="<?php echo $registro['hora']; ?>" required>
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label">Corrección</label>
-                                <input type="number" class="form-control" name="correccion" step="0.1" value="<?php echo $registro['correccion']; ?>" required>
-                            </div>
-                        <?php endif; ?>
-
-                        <div class="d-flex gap-2 mt-4">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-check-circle"></i> Actualizar
-                            </button>
-                            <a href="read.php?fecha=<?php echo $fecha; ?>" class="btn btn-secondary">
-                                <i class="bi bi-x-circle"></i> Cancelar
-                            </a>
+                        </form>
+                    <?php else: ?>
+                        <div class="alert alert-danger">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                            No se encontró el registro o no tienes permiso para editarlo.
                         </div>
-                    </form>
-                <?php else: ?>
-                    <div class="alert alert-danger">
-                        <i class="bi bi-exclamation-triangle-fill me-2"></i>
-                        No se encontró el registro o no tienes permiso para editarlo.
-                    </div>
-                    <a href="read.php?fecha=<?php echo $fecha; ?>" class="btn btn-secondary">
-                        <i class="bi bi-arrow-left"></i> Volver a Registros
-                    </a>
-                <?php endif; ?>
+                        <a href="read.php?fecha=<?php echo $fecha; ?>" class="btn btn-secondary">
+                            <i class="bi bi-arrow-left"></i> Volver a Registros
+                        </a>
+                    <?php endif; ?>
+                </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <!-- Footer añadido sin alterar la lógica del código -->
-    <footer class="bg-dark text-white py-4 mt-5">
+    <footer class="bg-dark text-white py-4">
         <div class="container">
             <div class="text-center">
                 <p class="mb-0">&copy; <?php echo date('Y'); ?> DiabetesControl. Todos los derechos reservados.</p>
