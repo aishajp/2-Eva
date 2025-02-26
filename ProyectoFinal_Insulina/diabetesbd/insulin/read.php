@@ -1,5 +1,9 @@
 <?php
-session_start(); // Asegurar que la sesión está iniciada
+
+// Iniciar sesión solo si no hay una activa
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 require_once '../includes/functions.php';
 require_once '../includes/insulin_functions.php';
@@ -8,7 +12,7 @@ require_once '../config/database.php';
 redirectIfNotLoggedIn();
 
 // Verificar que la sesión contiene 'id_usu'
-if (!isset($_SESSION['id_usu'])) {
+if (!isset($_SESSION['user_id'])) {
     die("Error: El usuario no ha iniciado sesión correctamente.");
 }
 
@@ -16,7 +20,7 @@ $database = new Database();
 $db = $database->getConnection();
 
 $fecha = isset($_GET['fecha']) ? $_GET['fecha'] : date('Y-m-d');
-$registros = obtenerRegistrosDia($db, $fecha, $_SESSION['id_usu']);
+$registros = obtenerRegistrosDia($db, $fecha, $_SESSION['user_id']);
 
 ?>
 
@@ -62,7 +66,20 @@ $registros = obtenerRegistrosDia($db, $fecha, $_SESSION['id_usu']);
     </nav>
 
     <main class="flex-grow-1">
-        <div class="container mt-4">
+    <div class="container mt-4">
+    <?php if (isset($_SESSION['mensaje'])): ?>
+        <div class="alert alert-<?php echo $_SESSION['tipo_mensaje']; ?> alert-dismissible fade show" role="alert">
+            <?php 
+            echo $_SESSION['mensaje']; 
+            // Clear the message after displaying it
+            unset($_SESSION['mensaje']);
+            unset($_SESSION['tipo_mensaje']);
+            ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    <?php endif; ?>
+    
+    <!-- Rest of your code -->
             <div class="card">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h3>Registros del Día</h3>
@@ -102,11 +119,11 @@ $registros = obtenerRegistrosDia($db, $fecha, $_SESSION['id_usu']);
                                     <td><?php echo $comida['raciones']; ?></td>
                                     <td><?php echo $comida['insulina']; ?></td>
                                     <td>
-                                        <?php if (isset($comida['id_comida'])): ?>
+                                        <?php if (isset($comida['id_usu'])): ?>
                                             <button class="btn btn-sm btn-warning" 
-                                                    onclick="editarComida(<?php echo $comida['id_comida']; ?>)">Editar</button>
+                                                    onclick="editarComida(<?php echo $comida['id_usu']; ?>)">Editar</button>
                                             <button class="btn btn-sm btn-danger" 
-                                                    onclick="eliminarRegistro('comida', <?php echo $comida['id_comida']; ?>)">Eliminar</button>
+                                                    onclick="eliminarRegistro('comida', <?php echo $comida['id_usu']; ?>)">Eliminar</button>
                                         <?php else: ?>
                                             <span class="text-danger">Error: ID no encontrado</span>
                                         <?php endif; ?>
@@ -133,15 +150,15 @@ $registros = obtenerRegistrosDia($db, $fecha, $_SESSION['id_usu']);
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function eliminarRegistro(tipo, id) {
-            if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
-                window.location.href = `delete.php?tipo=${tipo}&id=${id}&fecha=<?php echo $fecha; ?>`;
-            }
-        }
+        function eliminarRegistro(tipo_comida, id_usu) {
+    if (confirm('¿Estás seguro de que deseas eliminar este registro?')) {
+        window.location.href = `delete.php?tipo_comida=${tipo_comida}&id_usu=${id_usu}&fecha=<?php echo $fecha; ?>`;
+    }
+}
 
-        function editarComida(id) {
-            window.location.href = `update.php?tipo=comida&id=${id}`;
-        }
+function editarComida(id_usu) {
+    window.location.href = `update.php?tipo_comida=tipo_comida&id_usu=${id_usu}&fecha=<?php echo $fecha; ?>`;
+}
     </script>
 </body>
 </html>

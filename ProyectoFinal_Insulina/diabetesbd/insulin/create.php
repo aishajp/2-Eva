@@ -1,4 +1,10 @@
 <?php
+
+// Iniciar sesión solo si no hay una activa
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 require_once '../includes/functions.php';
 require_once '../includes/insulin_functions.php';
 require_once '../config/database.php';
