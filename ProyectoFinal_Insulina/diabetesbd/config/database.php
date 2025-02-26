@@ -1,9 +1,9 @@
 <?php
 class Database {
-    private $host = "localhost";
-    private $db_name = "diabetesdb";
-    private $username = "root";
-    private $password = "";
+    private $host = "fdb1028.awardspace.net";
+    private $db_name = "4595959_diabetesbd";
+    private $username = "4595959_diabetesbd";
+    private $password = "Piedras33";
     public $conn;
 
     public function getConnection() {
