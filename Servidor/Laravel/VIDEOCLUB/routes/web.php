@@ -29,3 +29,4 @@ Route::get('catalog/create', function () {
 Route::get('catalog/edit/{id}', function ($id) {
     return view('catalog.edit', array('id' => $id));
 });
+?>
