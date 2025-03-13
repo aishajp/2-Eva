@@ -252,8 +252,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Glucosa</label>
-                                        <input type="number" class="form-control form-control-sm" name="glucosa_hipo">
-                                    </div>
+                                        <input type="number" class="form-control form-control-sm" name="glucosa_hipo" min="1" max="600" required>
+                                        </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
@@ -280,8 +280,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Glucosa</label>
-                                        <input type="number" class="form-control form-control-sm" name="glucosa_hiper">
-                                    </div>
+                                        <input type="number" class="form-control form-control-sm" name="glucosa_hiper" min="1" max="600" required>
+                                        </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">

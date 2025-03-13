@@ -3,10 +3,10 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-session_start();
 // Mejora en seguridad de sesión
 ini_set('session.cookie_httponly', 1);
 ini_set('session.use_only_cookies', 1);
+session_start();
 session_regenerate_id(true);
 
 ob_start();
@@ -59,8 +59,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt->rowCount() > 0) {
             $error = "Este nombre de usuario ya está registrado";
         } else {
-            $sql = "INSERT INTO usuario (nombre, apellidos, usuario, contra, fecha_nacimiento, fecha_registro) 
-                    VALUES (?, ?, ?, ?, ?, NOW())";
+            $sql = "INSERT INTO usuario (nombre, apellidos, usuario, contra, fecha_nacimiento) 
+                    VALUES (?, ?, ?, ?, ?)";
             $stmt = $db->prepare($sql);
             
             try {
