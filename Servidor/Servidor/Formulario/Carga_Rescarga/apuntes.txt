@@ -1,0 +1,23 @@
+CARGAR 
+           |  NOMBRE -> AISHA
+ Formulario|  APELLIDOS -> JUAN-ARACIL
+           |      /*ENVIAR*/
+
+RECARGAR
+    Ejecutar lasa acciones correspondientes con ese nombre y apellidos
+    
+    Pueden estar en dos ficheros
+        Fichero 1 -> Formulario
+        Fichero 2 -> RECARGAR
+    
+    Puede ocurrir que esten en el mismo fichero tambien
+        
+        Si existe nombre
+            entonces
+                ejecutar acciones correspondientes
+        Si no existe
+            mostrar Formulario
+
+
+NO ES LO MISMO QUE UNA VARIBLE ESTE VACIA A QUE NO EXISTA
+    HAY UNA FUNCION PARA COMPROBARLO

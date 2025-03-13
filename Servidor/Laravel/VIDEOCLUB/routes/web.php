@@ -1,61 +1,32 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\CatalogController;
-
-// Ruta principal que redirige al catálogo
-Route::get('/', [HomeController::class, 'getHome']);
-
-// Rutas del catálogo
-Route::get('catalog', [CatalogController::class, 'getIndex']);
-Route::get('catalog/show/{id}', [CatalogController::class, 'getShow']);
-Route::get('catalog/create', [CatalogController::class, 'getCreate']);
-Route::get('catalog/edit/{id}', [CatalogController::class, 'getEdit']);
-
 
 Route::get('/', function () {
-   // return view('welcome');
-   echo "Hola desde Laravel";
+    return view('home');
 });
 
-/* Asi se define la 2 ruta, http://localhost:8080/2ºEva/Servidor/Laravel/VIDEOCLUB/public/pagina1 */
-Route::get('pagina1', function () {
-    echo "Esta es la página 1";
+Route::get('login', function () {
+    return view('auth.login');
 });
 
-/* Asi se define la 3 ruta, http://localhost:8080/2ºEva/Servidor/Laravel/VIDEOCLUB/public/pagina2/1 (numero que queramos = id) */
-Route::get('pagina2/{id}', function ($id) {
-    echo "Usuario ".$id;
-}); 
-
-/* Asi se define la 4 ruta, http://localhost:8080/2ºEva/Servidor/Laravel/VIDEOCLUB/public/pagina3 */
-Route::get('pagina3/{name?}', function($name = null)
-{
-    return $name;
+Route::get('logout', function () {
+    return 'Logout usuario';
 });
 
-// También podemos poner algún valor por defecto...
-Route::get('pagina3_1/{name?}', function($name = 'Aisha')
-{
-    return $name;
+Route::get('catalog', function () {
+    return view('catalog.index');
 });
 
-Route::get('pagina4/{name}', function($name)
-{
-    //
-})
-->where('name', '[A-Za-z]+');
+Route::get('catalog/show/{id}', function ($id) {
+    return view('catalog.show', array('id' => $id));
+});
 
-Route::get('user/{id}', function($id)
-{
-    //
-})
-->where('id', '[0-9]+');
+Route::get('catalog/create', function () {
+    return view('catalog.create');
+});
 
-// Si hay varios parámetros podemos validarlos usando un array:
-Route::get('user/{id}/{name}', function($id, $name)
-{
-    //
-})
-->where(array('id' => '[0-9]+', 'name' => '[A-Za-z]+'));  // Add this closing parenthesis and semicolon
+Route::get('catalog/edit/{id}', function ($id) {
+    return view('catalog.edit', array('id' => $id));
+});
+?>
