@@ -30,35 +30,103 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'fecha' => $fecha
     ];
     
-    // Guardar el registro de comida
-    if (guardarRegistroComida($db, $datos)) {
-        $mensaje = "Registro de comida guardado correctamente";
-        $tipo_mensaje = "success";
-        
-        // Si hay hipoglucemia, guardar también el registro de hipoglucemia
-        if (isset($_POST['es_hipo']) && $_POST['es_hipo'] == '1') {
-            $datos_hipo = [
-                'glucosa' => $_POST['glucosa_hipo'],
-                'hora' => $_POST['hora_hipo'],
-                'tipo_comida' => $_POST['tipo_comida'],
-                'fecha' => $fecha
-            ];
-            if (guardarRegistroHipo($db, $datos_hipo)) {
-                $mensaje .= " - Hipoglucemia registrada";
-            }
+    // Validación del servidor
+    $error = false;
+    $error_message = '';
+    
+    // Validar fecha
+    if (strtotime($_POST['fecha']) > strtotime(date('Y-m-d'))) {
+        $error = true;
+        $error_message = "No se pueden registrar datos para fechas futuras";
+    }
+    
+    // Validar valores de glucosa (si se proporcionan)
+    if (!empty($_POST['gl_1h']) && ($_POST['gl_1h'] <= 0 || $_POST['gl_1h'] > 600)) {
+        $error = true;
+        $error_message = "El valor de glucosa debe estar entre 1 y 600 mg/dL";
+    }
+    
+    if (!empty($_POST['gl_2h']) && ($_POST['gl_2h'] <= 0 || $_POST['gl_2h'] > 600)) {
+        $error = true;
+        $error_message = "El valor de glucosa debe estar entre 1 y 600 mg/dL";
+    }
+    
+    // Validar raciones e insulina
+    if (!empty($_POST['raciones']) && ($_POST['raciones'] < 0 || $_POST['raciones'] > 20)) {
+        $error = true;
+        $error_message = "Las raciones deben estar entre 0 y 20";
+    }
+    
+    if (!empty($_POST['insulina']) && ($_POST['insulina'] < 0 || $_POST['insulina'] > 50)) {
+        $error = true;
+        $error_message = "La insulina debe estar entre 0 y 50 unidades";
+    }
+    
+    // Validación específica para hipoglucemia
+    if (isset($_POST['es_hipo']) && $_POST['es_hipo'] == '1') {
+        if (empty($_POST['glucosa_hipo']) || $_POST['glucosa_hipo'] <= 0 || $_POST['glucosa_hipo'] > 600) {
+            $error = true;
+            $error_message = "El valor de glucosa para hipoglucemia debe estar entre 1 y 600 mg/dL";
         }
         
-        // Si hay hiperglucemia, guardar también el registro de hiperglucemia
-        if (isset($_POST['es_hiper']) && $_POST['es_hiper'] == '1') {
-            $datos_hiper = [
-                'glucosa' => $_POST['glucosa_hiper'],
-                'hora' => $_POST['hora_hiper'],
-                'correccion' => $_POST['correccion'],
-                'tipo_comida' => $_POST['tipo_comida'],
-                'fecha' => $fecha
-            ];
-            if (guardarRegistroHiper($db, $datos_hiper)) {
-                $mensaje .= " - Hiperglucemia registrada";
+        if (empty($_POST['hora_hipo'])) {
+            $error = true;
+            $error_message = "Debe especificar la hora de la hipoglucemia";
+        }
+    }
+    
+    // Validación específica para hiperglucemia
+    if (isset($_POST['es_hiper']) && $_POST['es_hiper'] == '1') {
+        if (empty($_POST['glucosa_hiper']) || $_POST['glucosa_hiper'] <= 0 || $_POST['glucosa_hiper'] > 600) {
+            $error = true;
+            $error_message = "El valor de glucosa para hiperglucemia debe estar entre 1 y 600 mg/dL";
+        }
+        
+        if (empty($_POST['hora_hiper'])) {
+            $error = true;
+            $error_message = "Debe especificar la hora de la hiperglucemia";
+        }
+        
+        if ($_POST['correccion'] < 0 || $_POST['correccion'] > 50) {
+            $error = true;
+            $error_message = "La corrección debe estar entre 0 y 50 unidades";
+        }
+    }
+    
+    if ($error) {
+        $mensaje = $error_message;
+        $tipo_mensaje = "danger";
+    } else {
+        // Guardar el registro de comida
+        if (guardarRegistroComida($db, $datos)) {
+            $mensaje = "Registro de comida guardado correctamente";
+            $tipo_mensaje = "success";
+            
+            // Si hay hipoglucemia, guardar también el registro de hipoglucemia
+            if (isset($_POST['es_hipo']) && $_POST['es_hipo'] == '1') {
+                $datos_hipo = [
+                    'glucosa' => $_POST['glucosa_hipo'],
+                    'hora' => $_POST['hora_hipo'],
+                    'tipo_comida' => $_POST['tipo_comida'],
+                    'fecha' => $fecha
+                ];
+                if (guardarRegistroHipo($db, $datos_hipo)) {
+                    $mensaje .= " - Hipoglucemia registrada";
+                }
+            }
+            
+            // Si hay hiperglucemia, guardar también el registro de hiperglucemia
+            if (isset($_POST['es_hiper']) && $_POST['es_hiper'] == '1') {
+                $datos_hiper = [
+                    'glucosa' => $_POST['glucosa_hiper'],
+                    'hora' => $_POST['hora_hiper'],
+                    'correccion' => $_POST['correccion'],
+                    'tipo_comida' => $_POST['tipo_comida'],
+                    'fecha' => $fecha
+                ];
+                if (guardarRegistroHiper($db, $datos_hiper)) {
+                    $mensaje .= " - Hiperglucemia registrada";
+                }
             }
         }
     }
@@ -143,14 +211,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Glucosa 1h</label>
-                                <input type="number" class="form-control form-control-sm" name="gl_1h">
-                            </div>
+                                <input type="number" class="form-control form-control-sm" name="gl_1h" min="1" max="600" required>
+                                </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Glucosa 2h</label>
-                                <input type="number" class="form-control form-control-sm" name="gl_2h">
-                            </div>
+                                <input type="number" class="form-control form-control-sm" name="gl_2h" min="1" max="600" required>
+                                </div>
                         </div>
                     </div>
                     
@@ -158,14 +226,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Raciones</label>
-                                <input type="number" class="form-control form-control-sm" name="raciones" step="0.1">
-                            </div>
+                                <input type="number" class="form-control form-control-sm" name="raciones" step="0.1" min="0" max="20" required>
+                                </div>
                         </div>
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label class="form-label">Insulina</label>
-                                <input type="number" class="form-control form-control-sm" name="insulina" step="0.1">
-                            </div>
+                                <input type="number" class="form-control form-control-sm" name="insulina" step="0.1" min="0" max="50" required>
+                                </div>
                         </div>
                     </div>
                     

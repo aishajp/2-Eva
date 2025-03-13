@@ -56,71 +56,135 @@ if ($tipo && $tipo_comida && $fecha) {
 
 // Procesar el formulario de actualización
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    try {
-        switch ($tipo) {
-            case 'comida':
-                $datos = [
-                    ':gl_1h' => $_POST['gl_1h'],
-                    ':gl_2h' => $_POST['gl_2h'],
-                    ':raciones' => $_POST['raciones'],
-                    ':insulina' => $_POST['insulina']
-                ];
-                $sql = "UPDATE comida SET 
-                        gl_1h = :gl_1h,
-                        gl_2h = :gl_2h,
-                        raciones = :raciones,
-                        insulina = :insulina
-                        WHERE tipo_comida = :tipo_comida AND fecha = :fecha AND id_usu = :id_usu";
-                break;
+    // Validación de datos
+    $error = false;
+    $error_message = '';
+    
+    switch ($tipo) {
+        case 'comida':
+            // Validar valores de glucosa
+            if ($_POST['gl_1h'] <= 0 || $_POST['gl_1h'] > 600) {
+                $error = true;
+                $error_message = "El valor de glucosa 1h debe estar entre 1 y 600 mg/dL";
+            }
+            
+            if ($_POST['gl_2h'] <= 0 || $_POST['gl_2h'] > 600) {
+                $error = true;
+                $error_message = "El valor de glucosa 2h debe estar entre 1 y 600 mg/dL";
+            }
+            
+            // Validar raciones e insulina
+            if ($_POST['raciones'] < 0 || $_POST['raciones'] > 20) {
+                $error = true;
+                $error_message = "Las raciones deben estar entre 0 y 20";
+            }
+            
+            if ($_POST['insulina'] < 0 || $_POST['insulina'] > 50) {
+                $error = true;
+                $error_message = "La insulina debe estar entre 0 y 50 unidades";
+            }
+            break;
+            
+        case 'hipoglucemia':
+            if ($_POST['glucosa'] <= 0 || $_POST['glucosa'] > 600) {
+                $error = true;
+                $error_message = "El valor de glucosa debe estar entre 1 y 600 mg/dL";
+            }
+            
+            if (empty($_POST['hora'])) {
+                $error = true;
+                $error_message = "Debe especificar la hora";
+            }
+            break;
+            
+        case 'hiperglucemia':
+            if ($_POST['glucosa'] <= 0 || $_POST['glucosa'] > 600) {
+                $error = true;
+                $error_message = "El valor de glucosa debe estar entre 1 y 600 mg/dL";
+            }
+            
+            if (empty($_POST['hora'])) {
+                $error = true;
+                $error_message = "Debe especificar la hora";
+            }
+            
+            if ($_POST['correccion'] < 0 || $_POST['correccion'] > 50) {
+                $error = true;
+                $error_message = "La corrección debe estar entre 0 y 50 unidades";
+            }
+            break;
+    }
+    
+    if ($error) {
+        $mensaje = $error_message;
+        $tipo_mensaje = "danger";
+    } else {
+        try {
+            switch ($tipo) {
+                case 'comida':
+                    $datos = [
+                        ':gl_1h' => $_POST['gl_1h'],
+                        ':gl_2h' => $_POST['gl_2h'],
+                        ':raciones' => $_POST['raciones'],
+                        ':insulina' => $_POST['insulina']
+                    ];
+                    $sql = "UPDATE comida SET 
+                            gl_1h = :gl_1h,
+                            gl_2h = :gl_2h,
+                            raciones = :raciones,
+                            insulina = :insulina
+                            WHERE tipo_comida = :tipo_comida AND fecha = :fecha AND id_usu = :id_usu";
+                    break;
 
-            case 'hipoglucemia':
-                $datos = [
-                    ':glucosa' => $_POST['glucosa'],
-                    ':hora' => $_POST['hora']
-                ];
-                $sql = "UPDATE hipoglucemia SET 
-                        glucosa = :glucosa,
-                        hora = :hora
-                        WHERE tipo_comida = :tipo_comida AND fecha = :fecha AND id_usu = :id_usu";
-                break;
+                case 'hipoglucemia':
+                    $datos = [
+                        ':glucosa' => $_POST['glucosa'],
+                        ':hora' => $_POST['hora']
+                    ];
+                    $sql = "UPDATE hipoglucemia SET 
+                            glucosa = :glucosa,
+                            hora = :hora
+                            WHERE tipo_comida = :tipo_comida AND fecha = :fecha AND id_usu = :id_usu";
+                    break;
 
-            case 'hiperglucemia':
-                $datos = [
-                    ':glucosa' => $_POST['glucosa'],
-                    ':hora' => $_POST['hora'],
-                    ':correccion' => $_POST['correccion']
-                ];
-                $sql = "UPDATE hiperglucemia SET 
-                        glucosa = :glucosa,
-                        hora = :hora,
-                        correccion = :correccion
-                        WHERE tipo_comida = :tipo_comida AND fecha = :fecha AND id_usu = :id_usu";
-                break;
-                
-            default:
-                $_SESSION['mensaje'] = "Tipo de registro no válido";
-                $_SESSION['tipo_mensaje'] = "danger";
+                case 'hiperglucemia':
+                    $datos = [
+                        ':glucosa' => $_POST['glucosa'],
+                        ':hora' => $_POST['hora'],
+                        ':correccion' => $_POST['correccion']
+                    ];
+                    $sql = "UPDATE hiperglucemia SET 
+                            glucosa = :glucosa,
+                            hora = :hora,
+                            correccion = :correccion
+                            WHERE tipo_comida = :tipo_comida AND fecha = :fecha AND id_usu = :id_usu";
+                    break;
+                    
+                default:
+                    $_SESSION['mensaje'] = "Tipo de registro no válido";
+                    $_SESSION['tipo_mensaje'] = "danger";
+                    header("Location: read.php?fecha=" . $fecha);
+                    exit();
+            }
+
+            $datos[':tipo_comida'] = $tipo_comida;
+            $datos[':fecha'] = $fecha;
+            $datos[':id_usu'] = $id_usu;
+            
+            $stmt = $db->prepare($sql);
+            if ($stmt->execute($datos)) {
+                $_SESSION['mensaje'] = "Registro actualizado correctamente";
+                $_SESSION['tipo_mensaje'] = "success";
                 header("Location: read.php?fecha=" . $fecha);
                 exit();
-        }
-
-        $datos[':tipo_comida'] = $tipo_comida;
-        $datos[':fecha'] = $fecha;
-        $datos[':id_usu'] = $id_usu;
-        
-        $stmt = $db->prepare($sql);
-        if ($stmt->execute($datos)) {
-            $_SESSION['mensaje'] = "Registro actualizado correctamente";
-            $_SESSION['tipo_mensaje'] = "success";
-            header("Location: read.php?fecha=" . $fecha);
-            exit();
-        } else {
-            $mensaje = "Error al actualizar el registro: " . implode(", ", $stmt->errorInfo());
+            } else {
+                $mensaje = "Error al actualizar el registro: " . implode(", ", $stmt->errorInfo());
+                $tipo_mensaje = "danger";
+            }
+        } catch(PDOException $e) {
+            $mensaje = "Error al actualizar el registro: " . $e->getMessage();
             $tipo_mensaje = "danger";
         }
-    } catch(PDOException $e) {
-        $mensaje = "Error al actualizar el registro: " . $e->getMessage();
-        $tipo_mensaje = "danger";
     }
 }
 ?>
@@ -197,21 +261,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Glucosa 1h después</label>
-                                        <input type="number" class="form-control" name="gl_1h" value="<?php echo $registro['gl_1h']; ?>" required>
+                                        <input type="number" class="form-control form-control-sm" name="gl_1h" min="1" max="600" value="<?php echo $registro['gl_1h']; ?>" required>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Glucosa 2h después</label>
-                                        <input type="number" class="form-control" name="gl_2h" value="<?php echo $registro['gl_2h']; ?>" required>
+                                        <input type="number" class="form-control form-control-sm" name="gl_2h" min="1" max="600" value="<?php echo $registro['gl_2h']; ?>" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Raciones</label>
-                                        <input type="number" class="form-control" name="raciones" step="0.1" value="<?php echo $registro['raciones']; ?>" required>
+                                        <input type="number" class="form-control form-control-sm" name="raciones" step="0.1" min="0" max="20" value="<?php echo $registro['raciones']; ?>" required>
                                     </div>
                                     <div class="col-md-6 mb-3">
                                         <label class="form-label">Insulina</label>
-                                        <input type="number" class="form-control" name="insulina" step="0.1" value="<?php echo $registro['insulina']; ?>" required>
+                                        <input type="number" class="form-control form-control-sm" name="insulina" step="0.1" min="0" max="50" value="<?php echo $registro['insulina']; ?>" required>
                                     </div>
                                 </div>
                             <?php elseif ($tipo == 'hipoglucemia'): ?>
