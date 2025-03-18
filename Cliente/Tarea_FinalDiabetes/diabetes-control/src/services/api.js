@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // URL base del servidor PHP
-const API_URL = 'http://localhost/api';
+const API_URL = 'http://localhost:8080/2%c2%baEva/Cliente/Tarea_FinalDiabetes/diabetes-control/usuarios.php';
 
 // Creación del cliente axios
 const apiClient = axios.create({
@@ -16,7 +16,7 @@ export const userService = {
   // Obtener todos los usuarios
   getAll: async () => {
     try {
-      const response = await apiClient.get('/users.php');
+      const response = await apiClient.get('/usuarios.php');
       return response.data;
     } catch (error) {
       console.error('Error al obtener usuarios:', error);
@@ -27,7 +27,7 @@ export const userService = {
   // Obtener un usuario por su nombre de usuario
   getByUsername: async (username) => {
     try {
-      const response = await apiClient.get(`/users.php?username=${username}`);
+      const response = await apiClient.get(`/usuarios.php?username=${username}`);
       return response.data;
     } catch (error) {
       console.error(`Error al obtener el usuario ${username}:`, error);
@@ -38,7 +38,7 @@ export const userService = {
   // Crear un nuevo usuario
   create: async (userData) => {
     try {
-      const response = await apiClient.post('/users.php', userData);
+      const response = await apiClient.post('/usuarios.php', userData);
       return response.data;
     } catch (error) {
       console.error('Error al crear usuario:', error);
@@ -49,7 +49,7 @@ export const userService = {
   // Actualizar un usuario existente
   update: async (username, userData) => {
     try {
-      const response = await apiClient.put(`/users.php?username=${username}`, userData);
+      const response = await apiClient.put(`/usuarios.php?username=${username}`, userData);
       return response.data;
     } catch (error) {
       console.error(`Error al actualizar el usuario ${username}:`, error);
@@ -60,7 +60,7 @@ export const userService = {
   // Eliminar un usuario
   delete: async (username) => {
     try {
-      const response = await apiClient.delete(`/users.php?username=${username}`);
+      const response = await apiClient.delete(`/usuarios.php?username=${username}`);
       return response.data;
     } catch (error) {
       console.error(`Error al eliminar el usuario ${username}:`, error);
