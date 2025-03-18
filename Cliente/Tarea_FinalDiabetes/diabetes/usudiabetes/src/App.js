@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ValidationProvider } from './context/ValidationContext';
 import ListadoUsu from './components/ListadoUsu';
-import UsuServer from '..UsuServer';
+import UsuServer from './UsuServer';
 import './App.css';
 
 function App() {
