@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaderAviles | Detalles de Pedidos </title>
+    <link rel="stylesheet" href="../style.css">
+    <script type="module" src="../js/Negocio.js"></script>
+</head>
+<body>
+    <div class="containerdetalles">
+        <div class="header">
+            <h1>MaderAviles | Piezas</h1>
+            <div class="a">
+                <a href="../index.html">Inicio</a>
+                <a href="pedidos.html">Pedidos</a>
+                <a href="detalles.html">Detalles</a>
+            </div>
+        </div>
+        <div class="piezas">
+            <div class="botones">
+                <button type="button" onclick="window.altaPieza.showModal()" id="btnaltapiz">Alta</button>
+                <button type="button" onclick="window.bajaPieza.showModal()">Baja</button>
+                <button type="button" onclick="window.modificarPieza.showModal()">Modificar</button>
+                <button type="button" onclick="eliminarDatosPiezas()">Clear</button>
+            </div>
+            <dialog class="modal" id="altaPieza">
+                <legend>Alta de Pieza</legend>
+                <form autocomplete="off" id="formaltpiz">
+                    <label for="numpedidoPieza">Numero de Pedido:</label>
+                    <select name="numpedidoPieza" id="numpedidoPieza">
+                    </select><br>
+                    <label for="numpiezaalta">Numero de Pieza: </label>
+                    <input type="number" name="numpiezaalta" id="numpiezaalta" required>
+                    <label for="largo">Largo de Pieza: </label>
+                    <input type="number" name="largo" id="largo" required>
+                    <label for="ancho">Ancho de Pieza: </label>
+                    <input type="number" name="ancho" id="ancho" required>
+                    <label for="grosor">Grosor de Pieza: </label>
+                    <input type="number" name="grosor" id="grosor" required>
+                    <label for="color">Color de Pieza: </label>
+                    <input type="text" name="color" id="color" required>
+                    <label for="ambascaras">¿Ambas Caras?</label>
+                    <select name="ambascaras" id="ambascaras" required>
+                        <option value="si">Si</option>
+                        <option value="no">No</option>
+                    </select>
+                    <br>
+                    <label for="cortada">¿Cortada?</label>
+                    <select name="cortada" id="cortada" required>
+                        <option value="si">Si</option>
+                        <option value="no">No</option>
+                    </select>
+                    <button type="button" id="darAltaPieza">Dar de Alta</button>
+                </form>
+            </dialog>
+            <dialog class="modal" id="bajaPieza">
+                <form method="dialog" autocomplete="off">
+                    <legend>Baja de Pieza</legend>
+                    <label for="numpiezabaja">Numero de Pieza: </label>
+                    <input type="text" name="numpieza" id="numpiezabaja" required>
+                    <button type="sumbit" id="darBajaPieza">Dar de Baja</button>
+                </form>
+            </dialog>
+            <dialog class="modal" id="modificarPieza">
+                <form method="dialog" autocomplete="off">
+                    
+                    <button type="sumbit" id="modPieza">Modificar</button>
+                </form>
+            </dialog>
+        </div>
+        <div class="tabla">
+            <table id="tbl">
+            </table>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{cargaEventosPiezas()});
+    </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlightEX</title>
+    <script type="module" src="scripts/operaciones.js"></script>
+</head>
+<body>
+    <h1>Vuelos</h1>
+    <form method="post">
+        <label for="codigo">Codigo</label>
+        <input type="text" id="codigo" name="codigo" required>
+        <label for="nPlazas">Nº de Plazas</label>
+        <input type="number" name="nPlazas" id="nPlazas" required min="1">
+        <label for="importe">Importe</label>
+        <input type="number" name="importe" id="importe" required min="1">
+        <button type="button" id="addVuelo">Agregar</button>
+        <button type="button" id="modVuelo">Modificar</button>
+        <button type="button" id="calcular">Calcular</button>
+    </form><br><br>
+    <table id="tbl">
+        <tbody></tbody>
+    </table>
+    <div id="mostrarDatos"></div>
+    <script>
+        document.addEventListener("DOMContentLoaded",()=>{cargarEventos()});
+    </script>
+</body>
+</html>

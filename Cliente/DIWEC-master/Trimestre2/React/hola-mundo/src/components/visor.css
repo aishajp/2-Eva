@@ -1,0 +1,24 @@
+.visor{
+    width: 300px !important;
+    height: 200px !important;
+    border: 0;
+}
+.img{
+    width: 700px;
+    height: 400px;
+    display: block;
+}
+.btns{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+.btns button{
+    flex: 1;
+    margin: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+.flip-horizontal{
+    transform: rotate(180deg);
+}

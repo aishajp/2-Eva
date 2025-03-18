@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MaderAviles | Detalles de Pedidos </title>
+    <link rel="stylesheet" href="../style.css">
+    <script type="module" src="../js/Negocio.js"></script>
+</head>
+<body>
+    <div class="containerdetalles">
+        <div class="header">
+            <h1>MaderAviles | Pedidos</h1>
+            <div class="a">
+                <a href="../index.html">Inicio</a>
+                <a href="piezas.html">Piezas</a>
+                <a href="detalles.html">Detalles</a>
+            </div>
+        </div>
+        <div class="pedidos">
+            <div class="botones">
+                <button type="button" onclick="window.altaPedido.showModal()">Alta</button>
+                <button type="button" onclick="window.bajaPedido.showModal()">Baja</button>
+                <button type="button" onclick="window.modificarPedido.showModal()" id="btnmodPed">Modificar</button>
+                <button type="button" onclick="localStorage.clear()">Clear</button>
+            </div>
+            <dialog class="modal" id="altaPedido">
+                <form method="dialog" autocomplete="off">
+                    <legend>Alta de Pedido</legend>
+                    <label for="numpedidoalta">Pedido Número: </label>
+                    <input type="number" id="numpedidoalta" name="numpedidoalta" required>
+                    <label for="nombreclientealta">Nombre del Cliente</label>
+                    <input type="text" name="nombreclientealta" id="nombreclientealta" required>
+                    <label for="apellidoclientealta">Apellido del Cliente</label>
+                    <input type="text" name="apellidoclientealta" id="apellidoclientealta" required>
+                    <label for="procesadoalta">Estado del Cliente (Solicitado): </label>
+                    <select name="procesadoalta" id="procesadoalta" required>
+                        <option value="true">Si</option>
+                        <option value="false">No</option>
+                    </select>
+                    <label for="servidoalta">¿Cliente Servido?</label>
+                    <select name="servidoalta" id="servidoalta" required>
+                        <option value="false">No</option>
+                        <option value="true">Si</option>
+                    </select>
+                    <input type="date" name="fechaalta" id="fechaalta" required>
+                    <button type="sumbit" id="darAltaPedido">Dar de Alta</button>
+                </form>
+            </dialog>
+            <dialog class="modal" id="bajaPedido">
+                <form method="dialog" autocomplete="off">
+                    <legend>Baja de Pedido</legend>
+                    <label for="numpedidobaja">Pedido Número: </label>
+                    <input type="number" id="numpedidobaja" name="numpedidobaja" required>
+                    <button type="sumbit" id="darBajaPedido">Dar de Baja</button>
+                </form>
+            </dialog>
+            <dialog class="modal" id="modificarPedido">
+                <form method="dialog" autocomplete="off" id="formmodped">
+                    <label for="numpedidomod">Numero de Pedido: </label>
+                    <select name="numpedidomod" id="numpedidomod">
+                    </select><br>
+                    <label for="nombreclientemod">Nombre del Cliente</label>
+                    <input type="text" name="nombreclientemod" id="nombreclientemod" required>
+                    <label for="apellidoclientemod">Apellido del Cliente</label>
+                    <input type="text" name="apellidoclientemod" id="apellidoclientemod" required>
+                    <label for="procesadomod">Estado del Cliente (Solicitado): </label>
+                    <select name="procesadomod" id="procesadomod" required>
+                        <option value="true">Si</option>
+                        <option value="false">No</option>
+                    </select>
+                    <label for="servidomod">¿Cliente Servido?</label>
+                    <select name="servidomod" id="servidomod" required>
+                        <option value="false">No</option>
+                        <option value="true">Si</option>
+                    </select>
+                    <input type="date" name="fechamod" id="fechamod" required>
+                    <button type="sumbit" id="modPedido">Modificar</button>
+                </form>
+            </dialog>
+        </div>
+        <div class="tabla">
+            <table id="tbl">
+            </table>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded',()=>{cargaEventosPedidos()});
+    </script>
+</body>
+</html>
