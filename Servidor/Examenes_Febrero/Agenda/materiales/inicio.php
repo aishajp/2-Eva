@@ -11,7 +11,7 @@ if (!isset($_SESSION['usuario'])) {
 $emojis = [
     "OIP0.jfif",
     "OIP1.jfif",
-    "OIP2.jfif",
+    "OIP2.jfif", 
     "OIP3.jfif",
     "OIP4.jfif"
 ];
@@ -19,6 +19,7 @@ $emojis = [
 // Inicializar el contador de emojis si no existe
 if (!isset($_SESSION['num_emojis'])) {
     $_SESSION['num_emojis'] = 1;
+    // Seleccionar un emoji aleatorio inicial
     $_SESSION['emojis_seleccionados'] = [array_rand($emojis)];
 }
 
@@ -26,8 +27,13 @@ if (!isset($_SESSION['num_emojis'])) {
 if (isset($_POST['incrementar'])) {
     if ($_SESSION['num_emojis'] < 5) {
         $_SESSION['num_emojis']++;
-        // Añadir un nuevo emoji aleatorio
-        $_SESSION['emojis_seleccionados'][] = array_rand($emojis);
+        // Añadir un nuevo emoji aleatorio (asegurando que sea diferente)
+        $nuevo_emoji = array_rand($emojis);
+        // Opcional: asegurar que no se repita el último emoji
+        while (in_array($nuevo_emoji, $_SESSION['emojis_seleccionados']) && count($emojis) > count($_SESSION['emojis_seleccionados'])) {
+            $nuevo_emoji = array_rand($emojis);
+        }
+        $_SESSION['emojis_seleccionados'][] = $nuevo_emoji;
     }
     
     // Si llegamos a 5 emojis, redirigir automáticamente
@@ -42,7 +48,6 @@ if (isset($_POST['grabar'])) {
     header("Location: agenda.php");
     exit();
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -101,15 +106,25 @@ if (isset($_POST['grabar'])) {
         .btn:hover {
             background-color: #45a049;
         }
+        .counter {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="welcome">
-            Bienvenido, <?php echo $_SESSION['usuario']; ?>
-        </div>
+    <div class="welcome">
+    Bienvenido, <?php echo $_SESSION['usuario']; ?> 
+    <a href="logout.php" style="margin-left: 10px; font-size: 14px; color: #666;">Cerrar sesión</a>
+</div>
         
         <h2>Seleccione el número de contactos a registrar</h2>
+        
+        <div class="counter">
+            Contactos seleccionados: <?php echo $_SESSION['num_emojis']; ?>/5
+        </div>
         
         <div class="emoji-container">
             <?php for ($i = 0; $i < $_SESSION['num_emojis']; $i++): ?>
@@ -119,7 +134,9 @@ if (isset($_POST['grabar'])) {
         
         <div class="buttons">
             <form method="post">
-                <button type="submit" name="incrementar" class="btn">INCREMENTAR</button>
+                <?php if ($_SESSION['num_emojis'] < 5): ?>
+                    <button type="submit" name="incrementar" class="btn">INCREMENTAR</button>
+                <?php endif; ?>
                 <button type="submit" name="grabar" class="btn">GRABAR</button>
             </form>
         </div>

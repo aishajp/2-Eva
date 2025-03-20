@@ -120,9 +120,10 @@ if ($max_contactos == 0) {
 </head>
 <body>
     <div class="container">
-        <div class="welcome">
-            Bienvenido, <?php echo $_SESSION['usuario']; ?>
-        </div>
+    <div class="welcome">
+    Bienvenido, <?php echo $_SESSION['usuario']; ?> 
+    <a href="logout.php" style="margin-left: 10px; font-size: 14px; color: #666;">Cerrar sesión</a>
+</div>
         
         <h2>Total de Contactos por Usuario</h2>
         
@@ -151,7 +152,7 @@ if ($max_contactos == 0) {
         
         <div class="links">
             <a href="inicio.php" class="link">Grabar más contactos</a>
-            <a href="index.php" class="link">Cerrar sesión</a>
+            <a href="index.php" class="link">Pagina principal</a>
         </div>
     </div>
 </body>

@@ -48,7 +48,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $telefono = $_POST["telefono$i"];
             $codusuario = $_SESSION['codusuario'];
             
-            $sql = "INSERT INTO contactos (nombre, email, telefono, codusuario) VALUES ('$nombre', '$email', '$telefono', $codusuario)";
+            $sql = "INSERT IGNORE INTO contactos (nombre, email, telefono) VALUES ('$nombre', '$email', '$telefono')";
             
             if ($conexion->query($sql) === TRUE) {
                 $contactos_guardados++;
@@ -142,9 +142,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="container">
-        <div class="welcome">
-            Bienvenido, <?php echo $_SESSION['usuario']; ?>
-        </div>
+    <div class="welcome">
+    Bienvenido, <?php echo $_SESSION['usuario']; ?> 
+    <a href="logout.php" style="margin-left: 10px; font-size: 14px; color: #666;">Cerrar sesión</a>
+</div>
         
         <h2>Introducir Contactos en la Agenda</h2>
         

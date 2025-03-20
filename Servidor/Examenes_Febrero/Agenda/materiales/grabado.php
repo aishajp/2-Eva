@@ -68,9 +68,10 @@ $contactos_guardados = $_SESSION['contactos_guardados'];
 </head>
 <body>
     <div class="container">
-        <div class="welcome">
-            Bienvenido, <?php echo $_SESSION['usuario']; ?>
-        </div>
+    <div class="welcome">
+    Bienvenido, <?php echo $_SESSION['usuario']; ?> 
+    <a href="logout.php" style="margin-left: 10px; font-size: 14px; color: #666;">Cerrar sesión</a>
+</div>
         
         <h2>Contactos Grabados</h2>
         
@@ -81,7 +82,7 @@ $contactos_guardados = $_SESSION['contactos_guardados'];
         <div class="links">
             <a href="inicio.php" class="link">Grabar más contactos</a>
             <a href="totales.php" class="link">Ver totales</a>
-            <a href="index.php" class="link">Cerrar sesión</a>
+            <a href="index.php" class="link">Pagina inicial</a>
         </div>
     </div>
 </body>
