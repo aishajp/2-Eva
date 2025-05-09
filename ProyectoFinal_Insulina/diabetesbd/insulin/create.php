@@ -34,12 +34,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $error = false;
     $error_message = '';
     
-    // Validar fecha
-    if (strtotime($_POST['fecha']) > strtotime(date('Y-m-d'))) {
-        $error = true;
-        $error_message = "No se pueden registrar datos para fechas futuras";
-    }
-    
     // Validar valores de glucosa (si se proporcionan)
     if (!empty($_POST['gl_1h']) && ($_POST['gl_1h'] <= 0 || $_POST['gl_1h'] > 600)) {
         $error = true;
@@ -191,6 +185,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class="card-body">
                 <form method="POST" id="registroForm">
+                    <div id="debugInfo" class="alert alert-info" style="display:none;"></div>
+                    
                     <div class="mb-3">
                         <label for="fecha" class="form-label">Fecha</label>
                         <input type="date" class="form-control form-control-sm" id="fecha" name="fecha" value="<?php echo date('Y-m-d'); ?>" required>
@@ -252,7 +248,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label class="form-label">Glucosa</label>
-                                        <input type="number" class="form-control form-control-sm" name="glucosa_hipo" min="1" max="600" required>
+                                        <input type="number" class="form-control form-control-sm" name="glucosa_hipo" min="1" max="600">
                                         </div>
                                 </div>
                                 <div class="col-md-6">
@@ -280,7 +276,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Glucosa</label>
-                                        <input type="number" class="form-control form-control-sm" name="glucosa_hiper" min="1" max="600" required>
+                                        <input type="number" class="form-control form-control-sm" name="glucosa_hiper" min="1" max="600">
                                         </div>
                                 </div>
                                 <div class="col-md-4">
@@ -292,7 +288,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <label class="form-label">Corrección</label>
-                                        <input type="number" class="form-control form-control-sm" name="correccion" step="0.1">
+                                        <input type="number" class="form-control form-control-sm" name="correccion" step="0.1" value="0">
                                     </div>
                                 </div>
                             </div>
@@ -337,12 +333,40 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Script para mostrar/ocultar secciones
         document.getElementById('check_hipo').addEventListener('change', function() {
             document.getElementById('form_hipo').style.display = this.checked ? 'block' : 'none';
+            
+            // Si está desmarcado, desactivamos los campos requeridos
+            const camposHipo = document.querySelectorAll('#form_hipo input');
+            camposHipo.forEach(campo => {
+                if (this.checked) {
+                    campo.setAttribute('required', 'required');
+                } else {
+                    campo.removeAttribute('required');
+                }
+            });
         });
         
         document.getElementById('check_hiper').addEventListener('change', function() {
             document.getElementById('form_hiper').style.display = this.checked ? 'block' : 'none';
+            
+            // Si está desmarcado, desactivamos los campos requeridos
+            const camposHiper = document.querySelectorAll('#form_hiper input');
+            camposHiper.forEach(campo => {
+                if (this.checked) {
+                    campo.setAttribute('required', 'required');
+                } else {
+                    campo.removeAttribute('required');
+                }
+            });
+        });
+        
+        // MODIFICADO: Evento submit mejorado
+        document.getElementById('registroForm').addEventListener('submit', function(event) {
+            // No detenemos el evento submit automáticamente
+            // Permitimos que el formulario continúe su envío
+            console.log("Formulario enviado");
         });
     </script>
 </body>
